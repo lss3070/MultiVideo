@@ -24,7 +24,7 @@ function Test(){
 }
 
 function updateWebviews(){
-    let webview = document.getElementById("container");
+    let webview = document.getElementById("WindowView");
   webview.style.height = document.documentElement.clientHeight + "px";
   webview.style.width = document.documentElement.clientWidth + "px";
 }
