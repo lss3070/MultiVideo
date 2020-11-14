@@ -1,0 +1,9 @@
+#container{
+    padding: 1em;
+    display: inline-block;
+    min-width: 360px;
+    width: 100% ; 
+    height: auto ;
+    clear: left;
+    box-sizing: border-box;
+}

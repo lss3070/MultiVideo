@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "MultiVideo",
+    "version": "2",
+    
+    "icons":{
+        "32":"/image/icon.png"
+    },
+    "permissions":["webview", 
+        "storage",
+         "contextMenus",
+          "alwaysOnTopWindows",
+           "unlimitedStorage",
+            "browser"],
+    "description": "Test",
+
+    "app":{
+        "background":{
+            "persistent":false,
+            "scripts":["setting.js"]
+        }
+    },
+    "minimum_chrome_version":"40"
+}
