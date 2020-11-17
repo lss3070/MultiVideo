@@ -17,7 +17,7 @@
     "app":{
         "background":{
             "persistent":false,
-            "scripts":["setting.js"]
+            "scripts":["background.js"]
         }
     },
     "minimum_chrome_version":"40"

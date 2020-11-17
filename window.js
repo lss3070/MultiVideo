@@ -5,8 +5,8 @@ let webview_zoom_level =null;
 window.addEventListener('load',function(e){
     chrome.storage.sync.get(function(items){
         if(items.url!=null){
-            
             // window.tracker.sendEvent('Browser','Load URL',items.url);
+            console.log(items.url);
             webview.setAttribute('src', items.url);
             webview.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
         }
