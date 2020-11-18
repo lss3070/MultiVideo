@@ -1,0 +1,10 @@
+#visitlist_ul{
+    list-style: none;
+    padding:0px;
+}
+
+.visitlist_li:hover{
+    cursor:pointer;
+    color:white;
+    background: linear-gradient(to bottom,#7598ef,#0e52f2);
+}

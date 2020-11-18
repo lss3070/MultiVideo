@@ -3,13 +3,27 @@
 <html>
 <head>
     <link rel="stylesheet" href="style/window.css">
+    <link rel="stylesheet" href="style/toolbar.css">
     <title>appName</title>
+    <script defer src="window.js"></script>
+ 
 </head>
 <body id="WindowView">
     <webview class="webview" id="container" src="about:blank" partition="persist:framelessapps" frameborder="0">
-
     </webview>
-  
-<script defer src="window.js"></script>
+
+    <div id="window_toolbar">
+
+        
+        <button id="fix_window_btn">
+            고정
+        </button>
+        <button id="setting_window_btn">    
+            세팅
+        </button>
+        <button id="close_window_btn">
+            닫기
+        </button>
+    </div>
 </body>
 </html>

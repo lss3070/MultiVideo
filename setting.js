@@ -5,16 +5,15 @@ function Test(){
     let input = document.createElement("input");
     let button = document.createElement("button");
     let visitlistUl= document.createElement("ul");
-
+    let a = document.createElement('a');
     visitlistUl.id="visitlist_ul";
-    
-    
-    
-    document.body.innerText="주소 : ";
+     
+    document.body.appendChild(a);
     document.body.appendChild(input);
     document.body.appendChild(button);
     document.body.appendChild(visitlistUl);
 
+    a.innerHTML='주소 : ';
     input.placeholder="주소를 입력해주세요";
     button.innerHTML="저장";
 
@@ -23,12 +22,10 @@ function Test(){
     button.addEventListener('click',function(){
         let aa = this;
         // window.tracker.sendEvent('Browser',"URL",newURL);
-        
-        initVisitList(input.value);
+        if(input.value!==null&&input.value!=="")  initVisitList(input.value);
 
         chrome.runtime.sendMessage({"open":"window"});
-        chrome.runtime.sendMessage({"close":"load"});
-              
+        chrome.runtime.sendMessage({"close":"setting"});
     })
 }
 
@@ -40,7 +37,7 @@ function updateWebviews(){
 
 function initVisitList(value){
    
-    let visitlist=[];
+        let visitlist=[];
     chrome.storage.sync.get(function(items) {
         let visitlistUl= document.getElementById("visitlist_ul");
        visitlistUl.innerHTML="";
@@ -48,6 +45,8 @@ function initVisitList(value){
         if(items.url!==undefined&&items.url!==''){
 
             if(items.url.indexOf(null)>=0)
+                items.url.splice(items.url.indexOf(null),1);
+            if(items.url.indexOf(undefined)>=0)
                 items.url.splice(items.url.indexOf(null),1);
 
             items.url.push(value);
@@ -57,10 +56,13 @@ function initVisitList(value){
                 visitlist.reverse();
                 visitlist.forEach(e=>{
                     let li= document.createElement("li");
+                    li.className="visitlist_li"
                     visitlistUl.appendChild(li);
                     li.innerHTML=e;
+                    li.addEventListener('click',function(e){
+                        listclickEvent(this);
+                    })
                 });
-                
             }
             chrome.storage.sync.set({url:visitlist});
         }else{
@@ -68,14 +70,12 @@ function initVisitList(value){
             chrome.storage.sync.set({url:visitlist});
         }
     });
-}
+    }
+    
 
-function callBack(val){
-    return val;
-}
 
-function addVisitList(){
-
+function listclickEvent(element){
+    initVisitList(element.innerHTML);
 }
 window.onload=Test;
 window.onresize=updateWebviews;
