@@ -1,22 +1,8 @@
 
 
 function Test(){
-   
-    let input = document.createElement("input");
-    let button = document.createElement("button");
-    let visitlistUl= document.createElement("ul");
-    let a = document.createElement('a');
     visitlistUl.id="visitlist_ul";
      
-    document.body.appendChild(a);
-    document.body.appendChild(input);
-    document.body.appendChild(button);
-    document.body.appendChild(visitlistUl);
-
-    a.innerHTML='주소 : ';
-    input.placeholder="주소를 입력해주세요";
-    button.innerHTML="저장";
-
     initVisitList();
 
     button.addEventListener('click',function(){

@@ -1,18 +1,10 @@
 var localstorage;
-
-chrome.app.runtime.onLaunched.addListener(function() {
-    chrome.app.window.create("setting.html",{
-        frame:'none',
-        id:'setting',
-        bounds:{width:300,height:50},
-        alwaysOnTop: localstoragealwaysOnTop ?? true
-    });
-
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
+        
         if (request.open === 'window') {
             createWindow({ url: 'window.html', id: 'window' });
             // chrome.app.window.create("window.html",{
-            //     id:'window',
+            //     id:'window',å
             //     bounds:{width:600,height:200},
             //     alwaysOnTop:true
             // })
@@ -26,7 +18,6 @@ chrome.app.runtime.onLaunched.addListener(function() {
             //     bounds:{width:300,height:50},
             //     alwaysOnTop:true
             // })
-            createWindow({ url: 'setting.html', id: 'setting', outerBounds: settingsBoundaries });
         }
         if (request.close === 'setting') {
             chrome.app.window.get('setting').close();
@@ -35,8 +26,8 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
 
     function createWindow(param){
-        param.id=param.id!==param.id !== 'undefined' ? param.id : 'window';
-        param.outerBounds = (typeof param.outerBounds !== 'undefined' ? param.outerBounds : { width: 500, height: 340, minWidth: 170, minHeight: 38 });
+        param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
+        param.Bounds = (typeof param.Bounds !== 'undefined' ? param.Bounds : { width: 500, height: 340});
 
         chrome.app.window.create(param.url,{
             frame:'none',
@@ -46,35 +37,39 @@ chrome.app.runtime.onLaunched.addListener(function() {
             resizable:true,
         },function(appWindow){
             appWindow.contentWindow.onload = function () {
-                let closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn'),
+                const closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn')
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
                 fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn');
     
-                
+             
+                if(closeBtn){
+                    closeBtn.onclick = function () {
+                        appWindow.contentWindow.close();
+                    };
+                }
+
                 if(settingBtn){
                     settingBtn.onclick = function () {
                         appWindow.contentWindow.chrome.runtime.sendMessage({'open': 'setting'});
                     };
                 }
                 if(fixedBtn){
-                    if (localstorage?.alwaysOnTop)
-                    pinObj.classList.add('fixed');
+                    if (true)
+                    fixedBtn.classList.add('fixed');
                 else
-                    pinObj.classList.remove('fiexe');
+                    fixedBtn.classList.remove('fixed');
 
-                    pinObj.onclick = function () {
-                        appWindow.setAlwaysOnTop( pinObj.classList.toggle('fixed') );
+                    fixedBtn.onclick = function () {
+                        appWindow.setAlwaysOnTop( fixedBtn.classList.toggle('fixed') );
                     };
                 }
-                if(closeBtn){
-                    closeBtn.onclick = function () {
-                        appWindow.contentWindow.close();
-                    };
-                }
-            
+
             }
-    
-        })
+        });
+        console.log(chrome.app.window)
     }
 
-  });
+    chrome.app.runtime.onLaunched.addListener(function() {
+        createWindow({ url: 'setting.html', id: 'setting' });
+    });
+
