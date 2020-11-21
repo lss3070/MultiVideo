@@ -13,7 +13,7 @@ function Test(){
         chrome.runtime.sendMessage({"open":"window"});
         chrome.runtime.sendMessage({"close":"setting"});
     })
-}
+}s
 
 function updateWebviews(){
     let webview = document.getElementById("WindowView");
