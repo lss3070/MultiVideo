@@ -1,19 +1,23 @@
 
 
 function Test(){
-    visitlistUl.id="visitlist_ul";
+    // visitlistUl.id="visitlist_ul";
      
     initVisitList();
+
+    let button= document.getElementById("save_window_btn");
+    let input = document.getElementById("input_area");
 
     button.addEventListener('click',function(){
         let aa = this;
         // window.tracker.sendEvent('Browser',"URL",newURL);
+
         if(input.value!==null&&input.value!=="")  initVisitList(input.value);
 
         chrome.runtime.sendMessage({"open":"window"});
         chrome.runtime.sendMessage({"close":"setting"});
     })
-}s
+}
 
 function updateWebviews(){
     let webview = document.getElementById("WindowView");
