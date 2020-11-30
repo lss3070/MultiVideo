@@ -9,14 +9,14 @@ function Test(){
     let input = document.getElementById("input_area");
 
     button.addEventListener('click',function(){
-        let aa = this;
-        // window.tracker.sendEvent('Browser',"URL",newURL);
-
-        if(input.value!==null&&input.value!=="")  initVisitList(input.value);
-
-        chrome.runtime.sendMessage({"open":"window"});
-        chrome.runtime.sendMessage({"close":"setting"});
+        jump(input.value);
     })
+}
+function jump(value){
+    if(value!==null&&value!=="")  initVisitList(value);
+
+    chrome.runtime.sendMessage({"open":"window"});
+    chrome.runtime.sendMessage({"close":"setting"});
 }
 
 function updateWebviews(){
@@ -50,6 +50,7 @@ function initVisitList(value){
                     visitlistUl.appendChild(li);
                     li.innerHTML=e;
                     li.addEventListener('click',function(e){
+                        jump(this.value);
                         listclickEvent(this);
                     })
                 });
@@ -61,12 +62,6 @@ function initVisitList(value){
         }
     });
     }
-    
-
-
-function listclickEvent(element){
-    initVisitList(element.innerHTML);
-}
 window.onload=Test;
 window.onresize=updateWebviews;
 
