@@ -15,20 +15,28 @@
     height:100%;
     margin:0;
 }
-#window_toolbar{
-    position: absolute;
-    top:0;
-    right: 0;
-    z-index: 9999;
-    opacity: 1;
-    height: 22px;
+
+#window_title{
+    pointer-events: none;
+    line-height: 23px;
+    font-size: 10pt;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(100% - (var(--action-bar-items) * 33px) - 8px);
+    float: left;
+}
+#window_favicon{
+    pointer-events: none;
     display: inline-block;
-    vertical-align: text-top;
+    width: 16px;
+    height: 16px;
+    margin: 0 5px 0 auto;
+    position: relative;
+    top: 3px;
 }
-#window_toolbar.fadein{
-    opacity: 1;
-}
-#window_toolbar.fadeout{
-    opacity: 0;
-    top:-38px
+
+#window_toolbar{
+    border:1px solid red;
 }

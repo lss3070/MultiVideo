@@ -1,3 +1,4 @@
+
 var localstorage;
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
@@ -12,7 +13,7 @@ var localstorage;
         }
         if (request.open === 'setting') {
 
-            createWindow({ url: 'setting.html', id: 'setting' });
+            createWindow({ url: './src/html/setting.html', id: 'setting' });
             // chrome.app.window.create("setting.html",{
             //     id:'setting',
             //     bounds:{width:300,height:50},
@@ -36,6 +37,7 @@ var localstorage;
             bounds:param.Bounds,
             resizable:true,
         },function(appWindow){
+         
             appWindow.contentWindow.onload = function () {
                 const closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn')
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
@@ -66,10 +68,9 @@ var localstorage;
 
             }
         });
-        console.log(chrome.app.window)
     }
 
     chrome.app.runtime.onLaunched.addListener(function() {
-        createWindow({ url: 'setting.html', id: 'setting' });
+        createWindow({ url: './src/html/setting.html', id: 'setting' });
     });
 
