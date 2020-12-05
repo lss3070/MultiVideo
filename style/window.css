@@ -39,4 +39,16 @@
 
 #window_toolbar{
     border:1px solid red;
+    position:absolute;
+    z-index: 999;
+    height: 20px;
+    width:calc(100vw);
+    background:#bdbdbd;
+}
+#window_title{
+    float:left;
+}
+#window_buttonlst{
+    float:right;
+
 }

@@ -1,5 +1,17 @@
 
 var localstorage;
+
+chrome.storage.sync.get(function(items){
+    if(items) localstorage=items;
+});
+chrome.storage.sync.onChanged.addListener(function(items) {
+    if (items)
+        Object.entries(items).forEach(function(key, value) {
+            localstorage[key[0]] = key[1].newValue;
+        });
+});
+
+
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
         if (request.open === 'window') {
@@ -27,13 +39,17 @@ var localstorage;
 
 
     function createWindow(param){
+        console.log(localstorage);
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.Bounds = (typeof param.Bounds !== 'undefined' ? param.Bounds : { width: 500, height: 340});
+
+        let toolbarDown =false;
+        let fade = false;
 
         chrome.app.window.create(param.url,{
             frame:'none',
             id:param.id,
-            alwaysOnTop:true,
+            alwaysOnTop:localstorage?.stayontop ?? true,
             bounds:param.Bounds,
             resizable:true,
         },function(appWindow){
@@ -41,8 +57,8 @@ var localstorage;
             appWindow.contentWindow.onload = function () {
                 const closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn')
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
-                fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn');
-    
+                fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn'),
+                windowToolBar= appWindow.contentWindow.document.getElementById('window_toolbar');
              
                 if(closeBtn){
                     closeBtn.onclick = function () {
@@ -56,7 +72,7 @@ var localstorage;
                     };
                 }
                 if(fixedBtn){
-                    if (true)
+                    if (localstorage?.stayontop)
                     fixedBtn.classList.add('fixed');
                 else
                     fixedBtn.classList.remove('fixed');
@@ -64,6 +80,46 @@ var localstorage;
                     fixedBtn.onclick = function () {
                         appWindow.setAlwaysOnTop( fixedBtn.classList.toggle('fixed') );
                     };
+                }
+
+                if(windowToolBar){
+                    windowToolBar.addEventListener('mousedown',function(){
+                        toolbarDown= true;
+                    });
+
+                    appWindow.contentWindow.addEventListener('mouseup',function(){
+                        toolbarDown= false;
+                    });
+                    
+                    appWindow.contentWindow.addEventListener('mousemove',function(e){
+                    //    e.preventDefault();
+                       fade=true;
+                       console.log(fade);
+                       windowToolBar.style.opacity=1;
+                       windowToolBar.style.top=0;
+                        if(toolbarDown){
+                            let deltaX = e.movementX;
+                            let deltaY = e.movementY;
+                            let winPostionX = appWindow.contentWindow.screenX;
+                            let winPostionY = appWindow.contentWindow.screenY;
+                            
+                            appWindow.contentWindow.moveTo(deltaX+winPostionX,deltaY+winPostionY);
+                            }
+                    });
+
+                    appWindow.contentWindow.addEventListener('mouseover',function(e){
+                        fade=true;
+                        console.log(fade);
+                        windowToolBar.style.opacity=1;
+                        windowToolBar.style.top=0;
+                        windowToolBar.style.transition= "opacity 1s ease";
+
+                    });
+                    appWindow.contentWindow.addEventListener('mouseout',function(e){
+                        fade=false;
+                        windowToolBar.style.opacity=0;
+                        windowToolBar.style.top="-38px";
+                    });
                 }
 
             }
@@ -74,3 +130,6 @@ var localstorage;
         createWindow({ url: './src/html/setting.html', id: 'setting' });
     });
 
+function WindowMoveEvent(){
+    
+}
