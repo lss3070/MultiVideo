@@ -39,7 +39,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
 
 
     function createWindow(param){
-        console.log(localstorage);
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.Bounds = (typeof param.Bounds !== 'undefined' ? param.Bounds : { width: 500, height: 340});
 

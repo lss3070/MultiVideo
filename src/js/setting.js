@@ -8,13 +8,11 @@ function Test(){
     let input = document.getElementById("input_area");
 
     button.addEventListener('click',function(){
-
         jump(input.value);
     })
 }
 function jump(value){
     if(value!==null&&value!=="")  initVisitList(value);
-
     chrome.runtime.sendMessage({"open":"window"});
     chrome.runtime.sendMessage({"close":"setting"});
 }
@@ -26,40 +24,30 @@ function updateWebviews(){
 }
 
 function initVisitList(value){
-   
-        let visitlist=[];
+    let visitlist=[];
     chrome.storage.sync.get(function(items) {
+        console.log(items);
         let visitlistUl= document.getElementById("visitlist_ul");
-       visitlistUl.innerHTML="";
-        // items.url.splice(items.url.indexOf(null),1);
-        if(items.url!==undefined&&items.url!==''){
+        visitlistUl.innerHTML="";
 
-            if(items.url.indexOf(null)>=0)
-                items.url.splice(items.url.indexOf(null),1);
-            if(items.url.indexOf(undefined)>=0)
-                items.url.splice(items.url.indexOf(null),1);
-
+        if(value!==null&&value!=''&&value!==undefined)
             items.url.push(value);
-            visitlist= Array.from(new Set(items.url));
-            
-            if(visitlist.length>0){
-                visitlist.reverse();
-                visitlist.forEach(e=>{
-                    let li= document.createElement("li");
-                    li.className="visitlist_li"
-                    visitlistUl.appendChild(li);
-                    li.innerHTML=e;
-                    li.addEventListener('click',function(e){
-                        jump(this.value);
-                        listclickEvent(this);
-                    })
-                });
-            }
-            chrome.storage.sync.set({url:visitlist});
-        }else{
-            visitlist.push(value);
-            chrome.storage.sync.set({url:visitlist});
-        }
+        
+        visitlist= Array.from(new Set(items.url));
+    
+        if(visitlist.length>0){
+            visitlist.reverse();
+            visitlist.forEach(e=>{
+                let li= document.createElement("li");
+                li.className="visitlist_li"
+                visitlistUl.appendChild(li);
+                li.innerHTML=e;
+                li.addEventListener('click',function(e){
+                    jump(this.innerHTML);
+                })
+            });
+    }
+    chrome.storage.sync.set({url:visitlist});
     });
     }
 
