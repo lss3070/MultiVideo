@@ -1,5 +1,6 @@
 
-const webview = document.getElementById('container');
+const container = document.getElementById('container');
+const webview = document.getElementById("WindowView");
 
 let webview_zoom_level =null;
 window.addEventListener('load',function(e){
@@ -7,14 +8,14 @@ window.addEventListener('load',function(e){
         if(items.url!=null){
             // window.tracker.sendEvent('Browser','Load URL',items.url);
             console.log(items.url);
-            webview.setAttribute('src', items.url);
-            webview.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
+            container.setAttribute('src', items.url);
+            container.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
+            updateWebviews();
         }
     })
 })
 
 function updateWebviews(){
-    let webview = document.getElementById("WindowView");
   webview.style.height = document.documentElement.clientHeight + "px";
   webview.style.width = document.documentElement.clientWidth + "px";
 }

@@ -9,6 +9,7 @@
     clear: left;
     box-sizing: border-box;
     padding:0;
+    position: absolute;
 }
 
 #WindowView{
@@ -44,6 +45,22 @@
     height: 20px;
     width:calc(100vw);
     background:#bdbdbd;
+}
+.window_toolbar_movedown{
+    opacity: 1 !important;
+    top:0 !important;
+    transition: opacity 1s ease !important;
+}
+.window_toolbar_moveup{
+    opacity: 0 !important;
+    top:-22px !important;
+}
+.container_movedown{
+    top:22px !important;
+    height: calc(100% - 22px) !important;
+}
+.container_moveup{
+    top:0px !important;
 }
 #window_title{
     float:left;
