@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../style/window.css">
+    <link rel="stylesheet" href="../../style/toolbar.css">
+    <meta http-equiv="context-type" content="text/html"; charset="UTF-8">
+    <title>appName</title>
+    <script defer src="/src/js/window.js"></script>
+ 
+</head>
+<body id="WindowView">
+    <webview class="container_moveup" id="window_container" src="about:blank" partition="persist:framelessapps" frameborder="0">
+    </webview>
+
+    <div id="window_toolbar" class="window_toolbar_moveup">
+        <webview id="window_favicon">
+
+        </webview>
+        <span id="window_title">Test</span>
+        <div id="window_buttonlst">
+                <button id="fix_window_btn">
+                        고정
+                    </button>
+                    <button id="setting_window_btn">    
+                        세팅
+                    </button>
+                    
+                    <button id="close_window_btn">
+                        닫기
+                    </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -18,7 +18,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
         if (request.open === 'window') {
-            createWindow({ url: 'window.html', id: 'window',bounds:windowBoundaries });
+            createWindow({ url: './src/html/window.html', id: 'window',bounds:windowBoundaries });
         }
         if (request.open === 'setting') {
 
@@ -50,7 +50,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
                 fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn'),
                 windowToolBar= appWindow.contentWindow.document.getElementById('window_toolbar'),
-                windowContainer = appWindow.contentWindow.document.getElementById('container'),
+                windowContainer = appWindow.contentWindow.document.getElementById('window_container'),
                 body = appWindow.contentWindow.document.getElementById('WindowView');
              
                 if(closeBtn){
@@ -125,8 +125,28 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         
                         toolbarMove(false);
                     });
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 }
-
+                if(windowContainer){
+                    windowContainer.addEventListener('permissionrequest', function(e) {
+                        if (e.permission === 'fullscreen') {
+                            console.log('fullscreen');
+                            e.stopPropagation()
+                            e.preventDefault();
+                        //   e.request.allow();
+                        };
+                    });
+                }
                 function toolbarMove(fade){
                     if(windowToolBar&&windowContainer){
                         if(fade){

@@ -15,3 +15,56 @@
     opacity: 0;
     top:-38px
 }
+
+#window_title{
+    pointer-events: none;
+    line-height: 23px;
+    font-size: 10pt;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(100% - (var(--action-bar-items) * 33px) - 8px);
+    float: left;
+}
+#window_favicon{
+    pointer-events: none;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 5px 0 auto;
+    position: relative;
+    top: 3px;
+}
+
+#window_toolbar{
+    border:1px solid red;
+    position:absolute;
+    z-index: 999;
+    height: 20px;
+    width:calc(100vw);
+    background:#bdbdbd;
+}
+.window_toolbar_movedown{
+    opacity: 1 !important;
+    top:0 !important;
+    transition: opacity 1s ease !important;
+}
+.window_toolbar_moveup{
+    opacity: 0 !important;
+    top:-22px !important;
+}
+.container_movedown{
+    top:22px !important;
+    height: calc(100% - 22px) !important;
+}
+.container_moveup{
+    top:0px !important;
+}
+#window_title{
+    float:left;
+}
+#window_buttonlst{
+    float:right;
+
+}
