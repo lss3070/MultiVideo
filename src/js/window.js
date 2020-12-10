@@ -10,6 +10,7 @@ window.addEventListener('load',function(e){
             console.log(items.url);
             container.setAttribute('src', items.url);
             container.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
+        
             updateWebviews();
         }
     })

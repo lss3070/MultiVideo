@@ -51,8 +51,15 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn'),
                 windowToolBar= appWindow.contentWindow.document.getElementById('window_toolbar'),
                 windowContainer = appWindow.contentWindow.document.getElementById('window_container'),
-                body = appWindow.contentWindow.document.getElementById('WindowView');
+                body = appWindow.contentWindow.document.getElementById('WindowView'),
+                bodyobj =appWindow.contentWindow.document.querySelector('body')
              
+                
+
+                function disappearBar() {
+                    console.log('happen');
+                }
+
                 if(closeBtn){
                     closeBtn.onclick = function () {
                         appWindow.contentWindow.close();
@@ -75,6 +82,13 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     };
                 }
 
+                bodyobj.addEventListener("mousemove",function(){
+                    console.log("dd");
+                })
+                bodyobj.onmousemove = function () {
+                console.log("qq");
+                }
+
                 if(windowToolBar){
                     windowToolBar.addEventListener('mousedown',function(){
                         toolbarDown= true;
@@ -84,14 +98,15 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         toolbarDown= false;
                     });
                     
-                    body.addEventListener('mousemove',function(e){
+                    
+                    body.addEventListener("mousemove",function(e){
                     //    e.preventDefault();
                     //    fade=true;
                     //    console.log(fade);
                     //    windowToolBar.style.opacity=1;
                     //    windowToolBar.style.top=0;
-                    e.preventDefault();
-                    console.log("mosein!")
+                 
+                    console.log("mosein!");
                     toolbarMove(true);
 
                        
@@ -106,7 +121,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     },true);
 
                     body.addEventListener('mouseover',function(e){
-                        e.preventDefault();
+                      
                         console.log("mosein!")
                         toolbarMove(true);
                         // fade=true;
@@ -122,7 +137,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         // fade=false;
                         // windowToolBar.style.opacity=0;
                         // windowToolBar.style.top="-38px";
-                        
+                        console.log("mouseout");
                         toolbarMove(false);
                     });
                 
@@ -138,6 +153,9 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 
                 }
                 if(windowContainer){
+                    windowContainer.addEventListener("mousemove",function(){
+                        console.log("new event");
+                    })
                     windowContainer.addEventListener('permissionrequest', function(e) {
                         if (e.permission === 'fullscreen') {
                             console.log('fullscreen');
