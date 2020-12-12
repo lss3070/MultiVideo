@@ -18,6 +18,7 @@
 }
 
 #window_title{
+    right:0;
     pointer-events: none;
     line-height: 23px;
     font-size: 10pt;
@@ -42,25 +43,21 @@
     border:1px solid red;
     position:absolute;
     z-index: 999;
-    height: 20px;
-    width:calc(100vw);
+    height: 22px;
+    width:calc(100vw - 22px);
     background:#bdbdbd;
-}
+   }
 .window_toolbar_movedown{
     opacity: 1 !important;
-    top:0 !important;
-    transition: opacity 1s ease !important;
+    
 }
 .window_toolbar_moveup{
     opacity: 0 !important;
-    top:-22px !important;
+    top:-38px !important;
 }
 .container_movedown{
-    top:22px !important;
-    height: calc(100% - 22px) !important;
-}
-.container_moveup{
-    top:0px !important;
+    top:38px !important;
+    height: calc(100% - 38px) !important;
 }
 #window_title{
     float:left;

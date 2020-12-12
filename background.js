@@ -52,13 +52,9 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 windowToolBar= appWindow.contentWindow.document.getElementById('window_toolbar'),
                 windowContainer = appWindow.contentWindow.document.getElementById('window_container'),
                 body = appWindow.contentWindow.document.getElementById('WindowView'),
-                bodyobj =appWindow.contentWindow.document.querySelector('body')
+                bodyobj =appWindow.contentWindow.document.querySelector('body'),
+                title = appWindow.contentWindow.document.getElementById('window_title')
              
-                
-
-                function disappearBar() {
-                    console.log('happen');
-                }
 
                 if(closeBtn){
                     closeBtn.onclick = function () {

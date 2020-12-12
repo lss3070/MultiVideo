@@ -1,4 +1,6 @@
 
+const title = document.getElementById("");
+
 function Test(){
     // visitlistUl.id="visitlist_ul";
      
@@ -12,6 +14,9 @@ function Test(){
     })
 }
 function jump(value){
+
+
+
     if(value!==null&&value!=="")  initVisitList(value);
     chrome.runtime.sendMessage({"open":"window"});
     chrome.runtime.sendMessage({"close":"setting"});
