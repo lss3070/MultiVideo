@@ -35,6 +35,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.bounds = (typeof param.bounds !== 'undefined' ? param.bounds : { width:500,height:350,minWidth:170,minHeight:30});
         let toolbarDown =false;
+        let mouseMove=false;
         let fade = false;
 
         chrome.app.window.create(param.url,{
@@ -44,7 +45,11 @@ chrome.storage.sync.onChanged.addListener(function(items) {
             outerBounds:param.bounds,
             resizable:true,
         },function(appWindow){
-         
+            const addStyle = function (styleString) {
+                const style = appWindow.contentWindow.document.createElement('style');
+                style.textContent = styleString;
+                appWindow.contentWindow.document.head.append(style);
+            }
             appWindow.contentWindow.onload = function () {
                 const closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn')
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
@@ -53,8 +58,14 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 windowContainer = appWindow.contentWindow.document.getElementById('window_container'),
                 body = appWindow.contentWindow.document.getElementById('WindowView'),
                 bodyobj =appWindow.contentWindow.document.querySelector('body'),
-                title = appWindow.contentWindow.document.getElementById('window_title')
+                title = appWindow.contentWindow.document.getElementById('window_title'),
+                buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst');
              
+                addStyle(`
+                    :root {
+                        --buttonlists: ${buttonlist.children.length};
+                    }`
+                )
 
                 if(closeBtn){
                     closeBtn.onclick = function () {
@@ -77,22 +88,31 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         appWindow.setAlwaysOnTop( fixedBtn.classList.toggle('fixed') );
                     };
                 }
-
-                bodyobj.addEventListener("mousemove",function(){
-                    console.log("dd");
-                })
-                bodyobj.onmousemove = function () {
-                console.log("qq");
-                }
-
                 if(windowToolBar){
+                   
                     windowToolBar.addEventListener('mousedown',function(){
                         toolbarDown= true;
+                        mouseMove=true;
+                    });
+                    windowToolBar.addEventListener('mouseup',function(){
+                        mouseMove=false;
                     });
 
                     appWindow.contentWindow.addEventListener('mouseup',function(){
                         toolbarDown= false;
+                        
                     });
+                    body.addEventListener("mouseout",function(e){
+                        if(mouseMove){
+                            console.log('a');
+                            let deltaX = e.movementX;
+                            let deltaY = e.movementY;
+                            let winPostionX = appWindow.contentWindow.screenX;
+                            let winPostionY = appWindow.contentWindow.screenY;
+                            
+                            appWindow.contentWindow.moveTo(deltaX+winPostionX,deltaY+winPostionY);
+                            }
+                    })
                     
                     
                     body.addEventListener("mousemove",function(e){
@@ -101,12 +121,11 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     //    console.log(fade);
                     //    windowToolBar.style.opacity=1;
                     //    windowToolBar.style.top=0;
-                 
-                    console.log("mosein!");
+                
                     toolbarMove(true);
-
                        
-                        if(toolbarDown){
+                        if(mouseMove){
+                            console.log('a');
                             let deltaX = e.movementX;
                             let deltaY = e.movementY;
                             let winPostionX = appWindow.contentWindow.screenX;
@@ -117,33 +136,11 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     },true);
 
                     body.addEventListener('mouseover',function(e){
-                      
-                        console.log("mosein!")
                         toolbarMove(true);
-                        // fade=true;
-                        // console.log(fade);
-                        // windowToolBar.style.opacity=1;
-                        // windowToolBar.style.top=0;
-                        // windowToolBar.style.transition= "opacity 1s ease";
-                        
-                     
-
                     },true);
                     appWindow.contentWindow.addEventListener('mouseout',function(e){
-                        // fade=false;
-                        // windowToolBar.style.opacity=0;
-                        // windowToolBar.style.top="-38px";
-                        console.log("mouseout");
                         toolbarMove(false);
                     });
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
@@ -184,5 +181,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
     }
 
     chrome.app.runtime.onLaunched.addListener(function() {
+
         createWindow({ url: './src/html/setting.html', id: 'setting',bounds:settingBoundaries });
     });

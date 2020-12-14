@@ -37,6 +37,8 @@
     margin: 0 5px 0 auto;
     position: relative;
     top: 3px;
+    background:#636363;
+    background-color:#636363;
 }
 
 #window_toolbar{
@@ -45,7 +47,7 @@
     z-index: 999;
     height: 22px;
     width:calc(100vw - 22px);
-    background:#bdbdbd;
+    background:#636363;
    }
 .window_toolbar_movedown{
     opacity: 1 !important;
@@ -61,6 +63,7 @@
 }
 #window_title{
     float:left;
+    max-width: calc(100% - (var(--buttonlists) * 33px) - 8px);
 }
 #window_buttonlst{
     float:right;
