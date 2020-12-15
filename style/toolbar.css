@@ -63,7 +63,7 @@
 }
 #window_title{
     float:left;
-    max-width: calc(100% - (var(--buttonlists) * 33px) - 8px);
+    max-width: calc(100% - (var(--buttonlists) * 40px) - 8px);
 }
 #window_buttonlst{
     float:right;

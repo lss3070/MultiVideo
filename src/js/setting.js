@@ -43,10 +43,25 @@ function initVisitList(value){
         if(visitlist.length>0){
             visitlist.reverse();
             visitlist.forEach(e=>{
+               
                 let li= document.createElement("li");
+                let favicon  = document.createElement("webview");
+                let li_a= document.createElement("a");
+                let url= new URL(e);
+                
+                li_a.innerHTML=e;
                 li.className="visitlist_li"
+                
+                fetch("https://favicongrabber.com/api/grab/"+url.protocol+url.hostname)
+                .then(response=>response.json())
+                .then(({icons}) => {
+                    if(icons[0]?.src)
+                    favicon.src = icons[0]?.src
+                })
+
                 visitlistUl.appendChild(li);
-                li.innerHTML=e;
+                li.appendChild(favicon);
+                li.appendChild(li_a);
                 li.addEventListener('click',function(e){
                     jump(this.innerHTML);
                 })

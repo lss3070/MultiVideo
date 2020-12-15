@@ -17,6 +17,16 @@ chrome.storage.sync.onChanged.addListener(function(items) {
 
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
+        if (typeof request.open !== 'undefined') {
+        if(chrome.app.window.get(request.open)){
+            chrome.app.window.get(request.open).onClosed.addListener(function(){
+                createWindow({ 'url': './src/html/'+request.open+'.html', 'id': request.open });
+            });
+            chrome.app.window.get(request.open).close();
+            return;
+            }
+        }
+
         if (request.open === 'window') {
             createWindow({ url: './src/html/window.html', id: 'window',bounds:windowBoundaries });
         }

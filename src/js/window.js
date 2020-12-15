@@ -24,7 +24,6 @@ container.addEventListener('loadcommit',function(e){
                             .then(({ icons }) => {
                                     if (icons[0]?.src)
                                     favicon.src = icons[0]?.src
-                                
                             })
              });
         }

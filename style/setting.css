@@ -21,4 +21,10 @@
     box-sizing: border-box;
     padding:0;
     position: absolute;
+    padding:5px 0px;
+}
+#visitlist_ul > li{
+    cursor:pointer;
+    min-height: 20px;
+    margin:2px;
 }
