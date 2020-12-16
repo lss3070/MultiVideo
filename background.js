@@ -5,7 +5,16 @@ const settingBoundaries={width:300,height:300,minWidth:150,minHeight:200};
 const windowBoundaries={width:500,height:350,minWidth:170,minHeight:30};
 
 chrome.storage.sync.get(function(items){
+
     if(items) localstorage=items;
+    //요기부터 다시시작..
+    if (items.titlebartimeout !== undefined){
+        disappearTimeoutOption.value = items.titlebartimeout;
+        disappearTimeoutValue.innerText = disappearTimeoutOption.value;
+    } else {
+        disappearTimeoutOption.value = 1500;
+        disappearTimeoutValue.innerText = disappearTimeoutOption.value;
+    }
 });
 chrome.storage.sync.onChanged.addListener(function(items) {
     if (items)
@@ -41,13 +50,12 @@ chrome.storage.sync.onChanged.addListener(function(items) {
 
 
     function createWindow(param){
-        console.log(param);
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.bounds = (typeof param.bounds !== 'undefined' ? param.bounds : { width:500,height:350,minWidth:170,minHeight:30});
         let toolbarDown =false;
         let mouseMove=false;
         let fade = false;
-
+        
         chrome.app.window.create(param.url,{
             frame:'none',
             id:param.id,
@@ -107,7 +115,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     windowToolBar.addEventListener('mouseup',function(){
                         mouseMove=false;
                     });
-
                     appWindow.contentWindow.addEventListener('mouseup',function(){
                         toolbarDown= false;
                         

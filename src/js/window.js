@@ -22,8 +22,10 @@ container.addEventListener('loadcommit',function(e){
                 fetch("https://favicongrabber.com/api/grab/" + results[0])
                             .then(response => response.json())
                             .then(({ icons }) => {
+                                if(icons!=undefined&&icons!=null){
                                     if (icons[0]?.src)
                                     favicon.src = icons[0]?.src
+                                }
                             })
              });
         }
@@ -44,7 +46,7 @@ window.addEventListener('load',function(e){
         if(items.url!=null){
             // window.tracker.sendEvent('Browser','Load URL',items.url);
             console.log(items.url);
-            container.setAttribute('src', items.url);
+            container.setAttribute('src', items.url[0]);
             container.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
         
             updateWebviews();
