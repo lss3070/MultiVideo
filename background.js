@@ -7,14 +7,6 @@ const windowBoundaries={width:500,height:350,minWidth:170,minHeight:30};
 chrome.storage.sync.get(function(items){
 
     if(items) localstorage=items;
-    //요기부터 다시시작..
-    if (items.titlebartimeout !== undefined){
-        disappearTimeoutOption.value = items.titlebartimeout;
-        disappearTimeoutValue.innerText = disappearTimeoutOption.value;
-    } else {
-        disappearTimeoutOption.value = 1500;
-        disappearTimeoutValue.innerText = disappearTimeoutOption.value;
-    }
 });
 chrome.storage.sync.onChanged.addListener(function(items) {
     if (items)
@@ -52,7 +44,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
     function createWindow(param){
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.bounds = (typeof param.bounds !== 'undefined' ? param.bounds : { width:500,height:350,minWidth:170,minHeight:30});
-        let toolbarDown =false;
         let mouseMove=false;
         let fade = false;
         
@@ -107,60 +98,49 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     };
                 }
                 if(windowToolBar){
-                   
+       
                     windowToolBar.addEventListener('mousedown',function(){
-                        toolbarDown= true;
-                        mouseMove=true;
-                    });
+                        window.removeButtonsForbidden=true;
+                    })
                     windowToolBar.addEventListener('mouseup',function(){
-                        mouseMove=false;
+                        console.log('mouseup');
+                        window.removeButtonsForbidden=false;
+                    })
+                    windowToolBar.addEventListener('mousemove',function(e){
+                        toolbarMove(true);
+                        clearTimeout(appWindow.contentWindow.removeToolbarTimer);
                     });
-                    appWindow.contentWindow.addEventListener('mouseup',function(){
-                        toolbarDown= false;
-                        
-                    });
-                    body.addEventListener("mouseout",function(e){
-                        if(mouseMove){
-                            console.log('a');
-                            let deltaX = e.movementX;
-                            let deltaY = e.movementY;
+                    windowToolBar.addEventListener('mouseleave',function(e){
+                        toolbarMove(false);
+                        if(window.removeButtonsForbidden){
+                            let deltaX = e.clientX;
+                            let deltaY = e.clientY;
                             let winPostionX = appWindow.contentWindow.screenX;
                             let winPostionY = appWindow.contentWindow.screenY;
+
+
                             
-                            appWindow.contentWindow.moveTo(deltaX+winPostionX,deltaY+winPostionY);
-                            }
+                            appWindow.contentWindow.moveBy(deltaX,deltaY);  
+                        }
                     })
+                    body.addEventListener("mouseleave",function(e){
+                        toolbarMove(false);
+                    });
                     
                     
                     body.addEventListener("mousemove",function(e){
-                    //    e.preventDefault();
-                    //    fade=true;
-                    //    console.log(fade);
-                    //    windowToolBar.style.opacity=1;
-                    //    windowToolBar.style.top=0;
                 
                     toolbarMove(true);
                        
-                        if(mouseMove){
-                            console.log('a');
+                        if(window.removeButtonsForbidden){
                             let deltaX = e.movementX;
                             let deltaY = e.movementY;
                             let winPostionX = appWindow.contentWindow.screenX;
                             let winPostionY = appWindow.contentWindow.screenY;
                             
-                            appWindow.contentWindow.moveTo(deltaX+winPostionX,deltaY+winPostionY);
+                            appWindow.contentWindow.moveBy(deltaX,deltaY);
                             }
                     },true);
-
-                    body.addEventListener('mouseover',function(e){
-                        toolbarMove(true);
-                    },true);
-                    appWindow.contentWindow.addEventListener('mouseout',function(e){
-                        toolbarMove(false);
-                    });
-                
-                
-                
                 }
                 if(windowContainer){
                     windowContainer.addEventListener("mousemove",function(){
@@ -176,22 +156,45 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     });
                 }
                 function toolbarMove(fade){
-                    if(windowToolBar&&windowContainer){
-                        if(fade){
+                    clearTimeout(appWindow.contentWindow.removeToolbarTimer);
+                        if(!fade){
+                            const storageToolBarTimeOut= localstorage?.toolbartimeout?? 1.5;
+
+                            appWindow.contentWindow.removeToolbarTimer=setTimeout(()=>{
+                            
+                                if(windowToolBar&&windowContainer){
+                                    windowToolBar.classList.remove("window_toolbar_movedown");
+                                    windowToolBar.classList.add("window_toolbar_moveup");
+            
+                                    windowContainer.classList.remove("container_movedown");
+                                    windowContainer.classList.add("container_moveup");
+                                }
+                            
+                            },(storageToolBarTimeOut>.5?storageToolBarTimeOut:1.5)*1000) 
+                        }else{
                             windowToolBar.classList.remove("window_toolbar_moveup");
                             windowToolBar.classList.add("window_toolbar_movedown");
     
                             windowContainer.classList.remove("container_moveup");
                             windowContainer.classList.add("container_movedown");
-                        }else{
-                            windowToolBar.classList.remove("window_toolbar_movedown");
-                            windowToolBar.classList.add("window_toolbar_moveup");
-    
-                            windowContainer.classList.remove("container_movedown");
-                            windowContainer.classList.add("container_moveup");
-                            toolbarDown= false;
                         }
-                    }
+
+                    // if(windowToolBar&&windowContainer){
+                    //     if(fade){
+                    //         windowToolBar.classList.remove("window_toolbar_moveup");
+                    //         windowToolBar.classList.add("window_toolbar_movedown");
+    
+                    //         windowContainer.classList.remove("container_moveup");
+                    //         windowContainer.classList.add("container_movedown");
+                    //     }else{
+                    //         windowToolBar.classList.remove("window_toolbar_movedown");
+                    //         windowToolBar.classList.add("window_toolbar_moveup");
+    
+                    //         windowContainer.classList.remove("container_movedown");
+                    //         windowContainer.classList.add("container_moveup");
+                    //         toolbarDown= false;
+                    //     }
+                    // }
                 }
             }
         });
