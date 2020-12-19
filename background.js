@@ -107,51 +107,31 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         window.removeButtonsForbidden=false;
                     })
                     windowToolBar.addEventListener('mousemove',function(e){
+                        console.log("toolbar... mousemove!");
                         toolbarMove(true);
                         clearTimeout(appWindow.contentWindow.removeToolbarTimer);
                     });
                     windowToolBar.addEventListener('mouseleave',function(e){
                         toolbarMove(false);
-                        if(window.removeButtonsForbidden){
-                            let deltaX = e.clientX;
-                            let deltaY = e.clientY;
-                            let winPostionX = appWindow.contentWindow.screenX;
-                            let winPostionY = appWindow.contentWindow.screenY;
-
-
-                            
-                            appWindow.contentWindow.moveBy(deltaX,deltaY);  
-                        }
                     })
-                    body.addEventListener("mouseleave",function(e){
+                    bodyobj.addEventListener("mouseleave",function(e){
                         toolbarMove(false);
                     });
                     
-                    
-                    body.addEventListener("mousemove",function(e){
-                
-                    toolbarMove(true);
-                       
-                        if(window.removeButtonsForbidden){
-                            let deltaX = e.movementX;
-                            let deltaY = e.movementY;
-                            let winPostionX = appWindow.contentWindow.screenX;
-                            let winPostionY = appWindow.contentWindow.screenY;
-                            
-                            appWindow.contentWindow.moveBy(deltaX,deltaY);
-                            }
-                    },true);
+                    bodyobj.addEventListener('mousemove',function(){
+                        toolbarMove(true);
+                    });
+                  
                 }
                 if(windowContainer){
                     windowContainer.addEventListener("mousemove",function(){
                         console.log("new event");
-                    })
+                    });
                     windowContainer.addEventListener('permissionrequest', function(e) {
                         if (e.permission === 'fullscreen') {
                             console.log('fullscreen');
                             e.stopPropagation()
                             e.preventDefault();
-                        //   e.request.allow();
                         };
                     });
                 }
@@ -169,32 +149,17 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                                     windowContainer.classList.remove("container_movedown");
                                     windowContainer.classList.add("container_moveup");
                                 }
-                            
                             },(storageToolBarTimeOut>.5?storageToolBarTimeOut:1.5)*1000) 
                         }else{
-                            windowToolBar.classList.remove("window_toolbar_moveup");
-                            windowToolBar.classList.add("window_toolbar_movedown");
-    
-                            windowContainer.classList.remove("container_moveup");
-                            windowContainer.classList.add("container_movedown");
-                        }
+                            if(windowToolBar&&windowContainer){
+                                windowToolBar.classList.remove("window_toolbar_moveup");
+                                windowToolBar.classList.add("window_toolbar_movedown");
+        
+                                windowContainer.classList.remove("container_moveup");
+                                windowContainer.classList.add("container_movedown");
+                            }
 
-                    // if(windowToolBar&&windowContainer){
-                    //     if(fade){
-                    //         windowToolBar.classList.remove("window_toolbar_moveup");
-                    //         windowToolBar.classList.add("window_toolbar_movedown");
-    
-                    //         windowContainer.classList.remove("container_moveup");
-                    //         windowContainer.classList.add("container_movedown");
-                    //     }else{
-                    //         windowToolBar.classList.remove("window_toolbar_movedown");
-                    //         windowToolBar.classList.add("window_toolbar_moveup");
-    
-                    //         windowContainer.classList.remove("container_movedown");
-                    //         windowContainer.classList.add("container_moveup");
-                    //         toolbarDown= false;
-                    //     }
-                    // }
+                        }
                 }
             }
         });

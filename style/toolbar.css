@@ -48,6 +48,16 @@
     height: 22px;
     width:calc(100vw - 22px);
     background:#636363;
+    
+   }
+   #window_dragarea{
+       position: absolute;
+       width:100%;
+       max-width:calc(100% - (var(--buttonlists) * 50px) - 8px);
+       height: 100%;
+       top: 0;
+       left:0;
+       -webkit-app-region:drag;
    }
 .window_toolbar_movedown{
     opacity: 1 !important;

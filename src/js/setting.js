@@ -1,7 +1,7 @@
 
 const title = document.getElementById("");
 
-function Test(){
+function Test(){    
     // visitlistUl.id="visitlist_ul";
      
     initVisitList();
@@ -32,6 +32,7 @@ function updateWebviews(){
 function initVisitList(value){
     let visitlist=[];
     chrome.storage.sync.get(function(items) {
+        
         let visitlistUl= document.getElementById("visitlist_ul");
         visitlistUl.innerHTML="";
 
@@ -47,24 +48,40 @@ function initVisitList(value){
         visitlist= items.url;
     
         if(visitlist!=undefined&&visitlist.length>0){
-            visitlist.forEach(e=>{
+            console.log(visitlist);
+            visitlist.forEach(e => {
                 let li= document.createElement("li");
-                let favicon  = document.createElement("i");
+                let favicon  = document.createElement("webview");
                 let li_a= document.createElement("a");
-                let url = value;
+                let url = new URL(e);
+
+                favicon.setAttribute('class',"visitlist_favicon");
+                favicon.addEventListener('loadcommit',function(e){
+                    if(e.isTopLevel){
+                        favicon.insertCSS({
+                            file:'./style/listview_favicon.css',
+                            runAt:'document_start'
+                        });
+                    }
+                })
 
                 li_a.innerHTML=e;
                 li.className="visitlist_li"
                 
-                //임시로 막아놈
-                // fetch("https://favicongrabber.com/api/grab/"+url.protocol+url.hostname)
-                // .then(response=>response.json())
-                // .then(({icons}) => {
-                //     if(icons!=undefined&&icons!=null){
-                //         if(icons[0]?.src)
-                //     favicon.src = icons[0]?.src
-                //     }
-                // })
+                if(value==null){
+            // 임시로 막아놈 기존 promise
+                fetch("https://favicongrabber.com/api/grab/"+url.hostname)
+                .then(response=>response.json())
+                .then(({icons}) => {
+                if(icons!=undefined&&icons!=null){
+                    if(icons[0]?.src){
+                        console.log( icons[0]?.src);
+                        favicon.src = icons[0]?.src;
+                    }
+                }
+            })
+        }
+            
 
                 visitlistUl.appendChild(li);
                 li.appendChild(favicon);

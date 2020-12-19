@@ -33,9 +33,8 @@ container.addEventListener('loadcommit',function(e){
 
 favicon.addEventListener('loadcommit',function(e){
     if(e.isTopLevel){
-        console.log(e);
         favicon.insertCSS({
-            file:'./style/favicon.css',
+            file:'./style/toolbar_favicon.css',
             runAt:'document_start'
         });
     }
