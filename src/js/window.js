@@ -3,6 +3,9 @@ const favicon = document.getElementById("window_favicon");
 const webview = document.getElementById("WindowView"),
 window_title = document.getElementById('window_title');
 
+const sliderbar = document.getElementById("size_window_slider");
+const sliderbutton = document.getElementById("size_window_button");
+
 container.addEventListener('loadcommit',function(e){
     if(e.isTopLevel){
         container.executeScript(
@@ -59,4 +62,41 @@ function updateWebviews(){
   webview.style.height = document.documentElement.clientHeight + "px";
   webview.style.width = document.documentElement.clientWidth + "px";
 }
+
+
+sliderbutton.addEventListener("click",function(){
+    VisibleSilderBar(true);
+})
+sliderbar.addEventListener("mouseup",function(){
+    VisibleSilderBar(false);
+})
+
+function InitSilderBarPostion(){
+    let temp =document.getElementById("window_buttonlst")
+    let bodyRect = document.body.getBoundingClientRect(),
+    elemRect = sliderbutton.getBoundingClientRect(),
+    offsettop   = elemRect.top - bodyRect.top,
+    offsetright=bodyRect.right-temp.width;
+
+    
+    sliderbar.style.top=offsettop;+"px"
+    sliderbar.style.right=offsetright+"px";
+   
+    console.log( bodyRect.right);
+    console.log(temp.width)
+}
+function VisibleSilderBar(bool){
+    let sliderbar = document.getElementById("size_window_slider");
+    let sliderbutton = document.getElementById("size_window_button");
+    if(bool){
+        sliderbar.style.display="inline";
+        sliderbutton.style.display="none";
+    }else{
+        sliderbar.style.display="none";
+        sliderbutton.style.display="inline";
+    }  
+}
+document.addEventListener('DOMContentLoaded',function(){
+    InitSilderBarPostion();
+})
 window.onresize=updateWebviews;

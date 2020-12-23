@@ -16,7 +16,16 @@
     float:left;
 }
 
-
+#size_window_slider{
+    height: 100px;
+    position: absolute;
+    display: none;
+    -webkit-appearance: slider-vertical; /* WebKit */
+}
+#size_window_button{
+    display: inline;
+    border-radius: 50%;
+}
 #WindowView{
     height:100%;
     margin:0;
