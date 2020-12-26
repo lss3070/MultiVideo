@@ -68,13 +68,21 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 body = appWindow.contentWindow.document.getElementById('WindowView'),
                 bodyobj =appWindow.contentWindow.document.querySelector('body'),
                 title = appWindow.contentWindow.document.getElementById('window_title'),
-                buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst');
+                buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst'),
+                zoomRange = appWindow.contentWindow.document.getElementsByClassName("size_window_range")[0]
              
                 addStyle(`
                     :root {
                         --buttonlists: ${buttonlist.children.length};
                     }`
                 )
+
+                if(zoomRange){
+                    zoomRange.addEventListener("input",function(){
+                        
+                        windowContainer.setZoom(this.value/100);
+                    });
+                }
 
                 if(closeBtn){
                     closeBtn.onclick = function () {
@@ -103,11 +111,11 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         window.removeButtonsForbidden=true;
                     })
                     windowToolBar.addEventListener('mouseup',function(){
-                        console.log('mouseup');
+                        
                         window.removeButtonsForbidden=false;
                     })
                     windowToolBar.addEventListener('mousemove',function(e){
-                        console.log("toolbar... mousemove!");
+                        
                         toolbarMove(true);
                         clearTimeout(appWindow.contentWindow.removeToolbarTimer);
                     });
@@ -125,11 +133,10 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 }
                 if(windowContainer){
                     windowContainer.addEventListener("mousemove",function(){
-                        console.log("new event");
+                        
                     });
                     windowContainer.addEventListener('permissionrequest', function(e) {
                         if (e.permission === 'fullscreen') {
-                            console.log('fullscreen');
                             e.stopPropagation()
                             e.preventDefault();
                         };

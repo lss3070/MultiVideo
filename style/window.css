@@ -26,6 +26,9 @@
     display: inline;
     border-radius: 50%;
 }
+.size_window_range{
+    width:20px;
+}
 #WindowView{
     height:100%;
     margin:0;

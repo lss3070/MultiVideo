@@ -78,12 +78,15 @@ function InitSilderBarPostion(){
     offsettop   = elemRect.top - bodyRect.top,
     offsetright=bodyRect.right-temp.width;
 
-    
+    offsetleft= bodyRect.width-temp.getBoundingClientRect().width;
+    console.log(bodyRect.width)
+    console.log(bodyRect.width-temp.getBoundingClientRect().width);
+    console.log(bodyRect.right-temp.getBoundingClientRect().width);
+
+    console.log(offsetleft);
+
     sliderbar.style.top=offsettop;+"px"
-    sliderbar.style.right=offsetright+"px";
-   
-    console.log( bodyRect.right);
-    console.log(temp.width)
+    sliderbar.style.left=offsetleft-20+"px";
 }
 function VisibleSilderBar(bool){
     let sliderbar = document.getElementById("size_window_slider");

@@ -5,7 +5,6 @@ function Test(){
     // visitlistUl.id="visitlist_ul";
      
     initVisitList();
-
     let button= document.getElementById("save_window_btn");
     let input = document.getElementById("input_area");
 
