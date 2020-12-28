@@ -23,12 +23,19 @@
     -webkit-appearance: slider-vertical; /* WebKit */
 }
 #size_window_button{
-    display: inline;
     border-radius: 50%;
+    width:15px;
+    height:15px;
+    border:none;
+    padding:0;
+    display:inline;
+    position: relative;
+    top:3px;
 }
 .size_window_range{
     width:20px;
 }
+
 #WindowView{
     height:100%;
     margin:0;

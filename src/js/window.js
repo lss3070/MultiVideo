@@ -61,6 +61,7 @@ window.addEventListener('load',function(e){
 function updateWebviews(){
   webview.style.height = document.documentElement.clientHeight + "px";
   webview.style.width = document.documentElement.clientWidth + "px";
+  InitSilderBarPostion();
 }
 
 
@@ -79,14 +80,9 @@ function InitSilderBarPostion(){
     offsetright=bodyRect.right-temp.width;
 
     offsetleft= bodyRect.width-temp.getBoundingClientRect().width;
-    console.log(bodyRect.width)
-    console.log(bodyRect.width-temp.getBoundingClientRect().width);
-    console.log(bodyRect.right-temp.getBoundingClientRect().width);
-
-    console.log(offsetleft);
 
     sliderbar.style.top=offsettop;+"px"
-    sliderbar.style.left=offsetleft-20+"px";
+    sliderbar.style.left=offsetleft-16+"px";
 }
 function VisibleSilderBar(bool){
     let sliderbar = document.getElementById("size_window_slider");
