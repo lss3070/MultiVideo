@@ -4,11 +4,15 @@
     right: 0;
     z-index: 9999;
     opacity: 1;
-    height: 22px;
+    height: 24px;
     display: inline-block;
     vertical-align: text-top;
     padding: 8px 10px;
+
+    width:calc(100vw - 20px);
+    background:#636363;
 }
+
 #window_toolbar.fadein{
     opacity: 1;
 }
@@ -26,7 +30,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;   
-     max-width: calc(100% - (var(--buttonlists) * 50px) - 8px);
+     max-width: calc(100% - (var(--buttonlists) * 50px));
     float: left;
 }
 #window_favicon{
@@ -41,19 +45,11 @@
     background-color:#636363;
 }
 
-#window_toolbar{
-    border:1px solid red;
-    position:absolute;
-    z-index: 999;
-    height: 22px;
-    width:calc(100vw - 22px);
-    background:#636363;
-    
-   }
+
    #window_dragarea{
        position: absolute;
        width:100%;
-       max-width:calc(100% - (var(--buttonlists) * 50px) - 8px);
+       max-width:calc(100% - (var(--buttonlists) * 32px));
        height: 100%;
        top: 0;
        left:0;
@@ -74,5 +70,40 @@
 
 #window_buttonlst{
     float:right;
+    height: 100%;
+}
 
+.window_btn{
+    border:none;
+    cursor: pointer;
+    vertical-align: middle;
+    height: 100%;
+    width:24px;
+    margin:0 3px;
+    cursor:pointer;
+    outline:0;
+    filter: brightness(0.9);
+    -webkit-transition:filter 2s, -webkit-transform 2s;
+    transition: filter 2s, transform 2s;
+}
+.window_btn:hover{
+    filter: brightness(1.75);
+}
+#fix_window_btn{
+    background: url("../image/pick.png") no-repeat;
+}
+#setting_window_btn{
+    background: url("../image/settings_24.png") no-repeat;
+}
+#close_window_btn{
+    background: url("../image/close_24.png") no-repeat;
+}
+#fix_window_btn{
+    background:url("../image/fixoff_24.png") no-repeat;
+}
+#underbar_window_btn{
+    background:url("../image/under_24.png") no-repeat;
+}
+.fixed{
+    background:url("../image/fixon_24.png") no-repeat !important;
 }

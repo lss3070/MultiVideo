@@ -4,7 +4,8 @@
 <head>
     <link rel="stylesheet" href="../../style/window.css">
     <link rel="stylesheet" href="../../style/toolbar.css">
-    <meta http-equiv="context-type" content="text/html"; charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"charset="UTF-8"; content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <!-- <meta http-equiv="context-type" content="text/html"; charset="UTF-8"> -->
     <title>appName</title>
     <script defer src="/src/js/window.js"></script>
  
@@ -20,14 +21,13 @@
             <input type="range" class="size_window_range" min="0" max="100"
             value="100" id="size_window_slider"/>
             <span width="20px"></span>
-                <button id="fix_window_btn">
-                        fixing
+                <button class="window_btn fixoff_window" id="fix_window_btn">
                     </button>
-                    <button id="setting_window_btn">    
-                        setting
+                    <button class="window_btn" id="setting_window_btn">
                     </button>
-                    <button id="close_window_btn">
-                        close
+                    <button class="window_btn" id="underbar_window_btn">
+                    </button>
+                    <button class="window_btn" id="close_window_btn">
                     </button>
         </div>
         <div id ="window_dragarea"></div>

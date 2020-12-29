@@ -21,6 +21,7 @@
     position: absolute;
     display: none;
     -webkit-appearance: slider-vertical; /* WebKit */
+    cursor:pointer;
 }
 #size_window_button{
     border-radius: 50%;
@@ -31,6 +32,8 @@
     display:inline;
     position: relative;
     top:3px;
+    cursor:pointer;
+    outline:0;
 }
 .size_window_range{
     width:20px;

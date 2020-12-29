@@ -5,17 +5,13 @@ const settingBoundaries={width:300,height:300,minWidth:150,minHeight:200};
 const windowBoundaries={width:500,height:350,minWidth:170,minHeight:30};
 
 chrome.storage.sync.get(function(items){
-
     if(items) localstorage=items;
 });
 chrome.storage.sync.onChanged.addListener(function(items) {
-    if (items)
         Object.entries(items).forEach(function(key, value) {
             localstorage[key[0]] = key[1].newValue;
         });
 });
-
-
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
         if (typeof request.open !== 'undefined') {
@@ -50,7 +46,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
         chrome.app.window.create(param.url,{
             frame:'none',
             id:param.id,
-            alwaysOnTop:localstorage?.stayontop ?? true,
+            alwaysOnTop:localstorage?.stayontop ?? false,
             outerBounds:param.bounds,
             resizable:true,
         },function(appWindow){
@@ -69,7 +65,8 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 bodyobj =appWindow.contentWindow.document.querySelector('body'),
                 title = appWindow.contentWindow.document.getElementById('window_title'),
                 buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst'),
-                zoomRange = appWindow.contentWindow.document.getElementsByClassName("size_window_range")[0]
+                zoomRange = appWindow.contentWindow.document.getElementsByClassName("size_window_range")[0],
+                underBar = appWindow.contentWindow.document.getElementById("underbar_window_btn")
              
                 addStyle(`
                     :root {
@@ -77,9 +74,14 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     }`
                 )
 
+                if(underBar){
+                    underBar.addEventListener('click',function(){
+                        appWindow.minimize();
+                    });
+                }
                 if(zoomRange){
                     zoomRange.addEventListener("input",function(){
-                        
+
                         windowContainer.setZoom(this.value/100);
                     });
                 }
@@ -96,13 +98,18 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     };
                 }
                 if(fixedBtn){
-                    if (localstorage?.stayontop)
-                    fixedBtn.classList.add('fixed');
+                    if (localstorage?.stayontop){
+                        fixedBtn.classList.add('fixed');
+                        fixedBtn.innerHTML="on";
+                    }
                 else
                     fixedBtn.classList.remove('fixed');
-
                     fixedBtn.onclick = function () {
-                        appWindow.setAlwaysOnTop( fixedBtn.classList.toggle('fixed') );
+
+                        let fixedbool = fixedBtn.classList.toggle('fixed')
+ 
+
+                        appWindow.setAlwaysOnTop(fixedbool );
                     };
                 }
                 if(windowToolBar){

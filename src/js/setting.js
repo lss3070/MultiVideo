@@ -47,7 +47,6 @@ function initVisitList(value){
         visitlist= items.url;
     
         if(visitlist!=undefined&&visitlist.length>0){
-            console.log(visitlist);
             visitlist.forEach(e => {
                 let li= document.createElement("li");
                 let favicon  = document.createElement("webview");
@@ -74,14 +73,11 @@ function initVisitList(value){
                 .then(({icons}) => {
                 if(icons!=undefined&&icons!=null){
                     if(icons[0]?.src){
-                        console.log( icons[0]?.src);
                         favicon.src = icons[0]?.src;
                     }
                 }
             })
         }
-            
-
                 visitlistUl.appendChild(li);
                 li.appendChild(favicon);
                 li.appendChild(li_a);
