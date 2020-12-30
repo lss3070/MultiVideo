@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <script src="../js/setting.js"></script>
+ <title>appName</title>s
+   <script src="../../thirdparty/jquery-3.5.1.min.js"></script>
+   <script src="../../thirdparty/jquery-ui.min.js"></script>
+    <script src="../js/setting.js"></script>
     <link rel="stylesheet" href="../../style/setting.css">
     <link rel="stylesheet" href="../../style/toolbar.css">
 
     <meta http-equiv="context-type" content="text/html"; charset="UTF-8">
-    <title>appName</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval';" />
 </head>
 <body id="WindowView">
     <div id="setting_container" class="container_movedown">
@@ -18,7 +21,10 @@
         </ul>
     </div>
         <div id="window_toolbar" class="window_toolbar_movedown">
-            <span id="window_title">Multi View</span>
+            <link rel="icon" type="image/pn" href="../../image/multiview_16.png">
+            <span id="window_title">
+                Multi View
+            </span>
             <div id="window_buttonlst">
                 <button class="window_btn" id="fix_window_btn">
                 </button>

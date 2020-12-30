@@ -1,12 +1,14 @@
 
 const title = document.getElementById("");
+ const input = document.getElementById("input_area");
 
 function Test(){    
+    console.log($("input_area"));
     // visitlistUl.id="visitlist_ul";
      
     initVisitList();
     let button= document.getElementById("save_window_btn");
-    let input = document.getElementById("input_area");
+   
 
     button.addEventListener('click',function(){
         if(input.value!=null&&input.value!==""){
@@ -90,8 +92,23 @@ function initVisitList(value){
     });
     }
 
+function autoComplete(){
+    $("#input_area").autocomplete({
+        source:function(request,response){
+            $.getJSON("https://suggestqueries.google.com/complete/search?callback=?",
+            {
+                "hl":"kr", // Language
+                "ds":"yt", // Restrict lookup to youtube
+                "jsonp":"suggestCallBack", // jsonp callback function name
+                "q":request.term, // query term
+                "client":"youtube" // force youtube style response, i.e. jsonp
+            })
+        }
+    })
+}
 window.addEventListener('DOMContentLoaded',function(){
     Test();
+    autoComplete();
 });
 window.onresize=updateWebviews;
 

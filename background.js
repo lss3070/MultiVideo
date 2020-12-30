@@ -73,7 +73,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         --buttonlists: ${buttonlist.children.length};
                     }`
                 )
-
                 if(underBar){
                     underBar.addEventListener('click',function(){
                         appWindow.minimize();
