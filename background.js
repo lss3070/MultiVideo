@@ -66,13 +66,52 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 title = appWindow.contentWindow.document.getElementById('window_title'),
                 buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst'),
                 zoomRange = appWindow.contentWindow.document.getElementsByClassName("size_window_range")[0],
-                underBar = appWindow.contentWindow.document.getElementById("underbar_window_btn")
+                underBar = appWindow.contentWindow.document.getElementById("underbar_window_btn"),
+                autocomplete =  appWindow.contentWindow.document.getElementById("input_area")
              
                 addStyle(`
                     :root {
                         --buttonlists: ${buttonlist.children.length};
                     }`
                 )
+
+                if(autocomplete){
+                    var head = document.getElementsByTagName('head')[0];
+                    var script = document.createElement('script');
+                    let meta = document.createElement("meta");
+                    meta.setAttribute("http-equiv","Content-Security-Policy");
+                     meta.setAttribute("content","script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;");
+                    script.type = 'text/javascript';
+                    script.src = "https://suggestqueries.google.com/";
+                    head.appendChild(meta);
+                    head.appendChild(script);
+
+                    let suggestCallBack;
+                      $(autocomplete).autocomplete({
+                        source:function(request,response){
+                            console.log(request);
+                            console.log(response);
+                            $.getJSON("https://suggestqueries.google.com/complete/search?callback=?",
+                            {
+                                "hl":"kr", // Language
+                                "ds":"yt", // Restrict lookup to youtube
+                                "jsonp":"suggestCallBack", // jsonp callback function name
+                                "q":request.term, // query term
+                                "client":"youtube" // force youtube style response, i.e. jsonp
+                            });
+                            suggestCallBack=function(data){
+                                   var suggestions = [];
+                                $.each(data[1], function(key, val) {
+                                    suggestions.push({"value":val[0]});
+                                });
+                                suggestions.length = 5; // prune suggestions list to only 5 items
+                                response(suggestions);
+                            }
+                        }
+                    })
+                }
+
+
                 if(underBar){
                     underBar.addEventListener('click',function(){
                         appWindow.minimize();
