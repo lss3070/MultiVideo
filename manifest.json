@@ -26,7 +26,7 @@
         "thirdparty/jquery-ui.min.js"]
     } 
     ],
-     "content_security_policy": "script-src 'self' https://suggestqueries.google.com ; object-src 'self'",
+     "content_security_policy": "script-src 'self' https://suggestqueries.google.com; object-src 'self'",
     
     "description": "MultiView",
     "app":{

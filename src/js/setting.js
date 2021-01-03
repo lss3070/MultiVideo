@@ -1,15 +1,31 @@
 
 const title = document.getElementById("");
- const input = document.getElementById("input_area");
+
+ const httplist=["http://","https://"]
+
+ window.addEventListener('load',function(){
+    Test();
+});
+window.onresize=updateWebviews;
 
 function Test(){    
     // visitlistUl.id="visitlist_ul";
      
     initVisitList();
     let button= document.getElementById("save_window_btn");
-   
+    let input = document.getElementById("input_area");
 
     button.addEventListener('click',function(){
+        let check=false;
+        httplist.forEach(e=>{
+            if(input.value.indexOf(e)!=-1){
+                check=true;
+            }
+        });
+        if(!check) input.value="http://"+input.value;
+        
+
+
         if(input.value!=null&&input.value!==""){
             initVisitList(input.value);
             chrome.runtime.sendMessage({"open":"window"});
@@ -91,12 +107,5 @@ function initVisitList(value){
     });
     }
 
-function autoComplete(){
 
-}
-window.addEventListener('DOMContentLoaded',function(){
-    Test();
-    autoComplete();
-});
-window.onresize=updateWebviews;
 

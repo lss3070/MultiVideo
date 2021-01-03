@@ -67,7 +67,8 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 buttonlist = appWindow.contentWindow.document.getElementById('window_buttonlst'),
                 zoomRange = appWindow.contentWindow.document.getElementsByClassName("size_window_range")[0],
                 underBar = appWindow.contentWindow.document.getElementById("underbar_window_btn"),
-                autocomplete =  appWindow.contentWindow.document.getElementById("input_area")
+                autocomplete =  appWindow.contentWindow.document.getElementById("input_area"),
+                serachBtn =  appWindow.contentWindow.document.getElementById("save_window_btn")
              
                 addStyle(`
                     :root {
@@ -81,32 +82,38 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     let meta = document.createElement("meta");
                     meta.setAttribute("http-equiv","Content-Security-Policy");
                      meta.setAttribute("content","script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;");
+                    meta.content="script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;"
                     script.type = 'text/javascript';
-                    script.src = "https://suggestqueries.google.com/";
+                    // script.src = "https://suggestqueries.google.com/";
                     head.appendChild(meta);
                     head.appendChild(script);
 
                     let suggestCallBack;
                       $(autocomplete).autocomplete({
                         source:function(request,response){
-                            console.log(request);
-                            console.log(response);
-                            $.getJSON("https://suggestqueries.google.com/complete/search?callback=?",
-                            {
-                                "hl":"kr", // Language
-                                "ds":"yt", // Restrict lookup to youtube
-                                "jsonp":"suggestCallBack", // jsonp callback function name
-                                "q":request.term, // query term
-                                "client":"youtube" // force youtube style response, i.e. jsonp
+                            $.ajax({
+                                type:'get',
+                                url:"https://suggestqueries.google.com/complete/search?client=firefox&q="+request.term,
+                                dataType:"json",
+                                data:{
+                                    term:request.term
+                                },
+                                success:function(data){
+                                    response(
+                                        $.map(data[1],function(item){
+                                            return item
+                                        })
+                                    )
+                                }
                             });
-                            suggestCallBack=function(data){
-                                   var suggestions = [];
-                                $.each(data[1], function(key, val) {
-                                    suggestions.push({"value":val[0]});
-                                });
-                                suggestions.length = 5; // prune suggestions list to only 5 items
-                                response(suggestions);
-                            }
+                        },
+                        select:function(event,ui){
+                            autocomplete.value=ui.item.value;
+                            serachBtn.click();
+                        },
+                        delay:0,
+                        focus:function(event,ui){
+                            return false;
                         }
                     })
                 }

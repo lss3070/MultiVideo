@@ -1,6 +1,12 @@
 #visitlist_ul{
     list-style: none;
     padding:0px;
+    overflow-y: auto;
+    height: 100%;
+}
+#visitlist_ul_cover{
+    overflow-y: auto;
+    height: 100%;
 }
 
 .visitlist_li:hover{
