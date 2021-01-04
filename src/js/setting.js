@@ -23,8 +23,6 @@ function Test(){
             }
         });
         if(!check) input.value="http://"+input.value;
-        
-
 
         if(input.value!=null&&input.value!==""){
             initVisitList(input.value);
@@ -46,9 +44,12 @@ function updateWebviews(){
 }
 
 function initVisitList(value){
+
+    fetch(value)
+    .then(response=> console.log(response));
+
     let visitlist=[];
     chrome.storage.sync.get(function(items) {
-        
         let visitlistUl= document.getElementById("visitlist_ul");
         visitlistUl.innerHTML="";
 
@@ -68,9 +69,12 @@ function initVisitList(value){
                 let li= document.createElement("li");
                 let favicon  = document.createElement("webview");
                 let li_a= document.createElement("a");
+                let btn = document.createElement("button");
+               
                 let url = new URL(e);
-
+                li_a.setAttribute("class","visitlist_a")
                 favicon.setAttribute('class',"visitlist_favicon");
+                btn.setAttribute("class","visitlist_closebtn");
                 favicon.addEventListener('loadcommit',function(e){
                     if(e.isTopLevel){
                         favicon.insertCSS({
@@ -98,13 +102,27 @@ function initVisitList(value){
                 visitlistUl.appendChild(li);
                 li.appendChild(favicon);
                 li.appendChild(li_a);
-                li.addEventListener('click',function(e){
-                    jump(this.children[1].innerHTML);
+                li.appendChild(btn);
+                li_a.addEventListener('click',function(e){
+                    jump(this.innerHTML);
+                })
+                btn.addEventListener('click',function(e){
+                    let index=$("li").index(e.target.parentNode);
+                    e.target.parentNode.remove();
+                    listremove(index);
                 })
             });
     }
     chrome.storage.sync.set({url:visitlist});
     });
+    }
+
+    function listremove(index){
+        chrome.storage.sync.get(function(items) {
+                items.url.splice(index,1);
+                chrome.storage.sync.set({url:items.url});
+        });
+
     }
 
 

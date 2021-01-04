@@ -81,7 +81,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     var script = document.createElement('script');
                     let meta = document.createElement("meta");
                     meta.setAttribute("http-equiv","Content-Security-Policy");
-                     meta.setAttribute("content","script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;");
+                    meta.setAttribute("content","script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;");
                     meta.content="script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;"
                     script.type = 'text/javascript';
                     // script.src = "https://suggestqueries.google.com/";

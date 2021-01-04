@@ -28,6 +28,7 @@
     padding:0;
     position: absolute;
     padding:5px 0px;
+    min-width: 100%;
 }
 #visitlist_ul > li{
     cursor:pointer;
@@ -41,6 +42,23 @@
     height: 16px;
     margin: 0 5px 0 auto;
     position: relative;
-    top: 1px;
+    top: 1.5px;
     background-color:#ffffff;
+}
+.visitlist_closebtn{
+    border:none;
+    position: relative;
+    top:2px;
+    width: 14px;
+    height: 14px;
+    float:right;
+    background:url("../image/close_12_blue.png") no-repeat;
+}
+.visitlist_closebtn:hover{
+    background:url("../image/close_12_white.png") no-repeat;
+    cursor:pointer;
+}
+.visitlist_a{
+    width:100%;
+    position:fixed;
 }
