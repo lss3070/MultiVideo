@@ -80,44 +80,8 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     }`
                 )
 
-                fetch(appWindow.contentWindow.document.location.href)
-                .then(resp => {
-                    resFn(resp);
-                  const csp = resp.headers.get('Content-Security-Policy');
-                console.log(csp)
-                });
-
-                function resFn(res){
-                    return newResponse(res, function (headers) {
-                        headers.delete("Content-Security-Policy");
-                        let a="default-src 'self' blob: filesystem:; connect-src * data: blob: filesystem:; style-src 'self' blob: filesystem: data: 'unsafe-inline'; img-src 'self' blob: filesystem: data:; frame-src 'self' blob: filesystem: data:; font-src 'self' blob: filesystem: data:; media-src * data: blob: filesystem:; script-src 'self' blob: filesystem:"
-                        headers.set("Content-Security-Policy", a);
-                        return headers;
-                      });
-                }
-                function newResponse(res,headerFn){
-                    function cloneHeaders() {
-                        var headers = new Headers();
-                        for (var kv of res.headers.entries()) {
-                          headers.append(kv[0], kv[1]);
-                        }
-                        return headers;
-                      }
-                var headers = headerFn ? headerFn(cloneHeaders()) : res.headers;
-
-                return new Promise(function (resolve) {
-                    return res.blob().then(function (blob) {
-                    resolve(new Response(blob, {
-                        status: res.status,
-                        statusText: res.statusText,
-                        headers: headers
-                    }));
-                    });
-                });
-                }
-
                 if(autocomplete){
-                    var head = document.head;
+                    var head = document.getElementsByTagName('head')[0];
                     let meta = document.createElement("meta");
                     meta.setAttribute("http-equiv","Content-Security-Policy");
                     meta.setAttribute("content","script-src 'self' https://suggestqueries.google.com 'unsafe-inline' 'unsafe-eval' data:;");
@@ -142,6 +106,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                             });
                         },
                         select:function(event,ui){
+                            
                             autocomplete.value=ui.item.value;
                             serachBtn.click();
                         },
