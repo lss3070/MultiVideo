@@ -18,7 +18,6 @@ function load(){
     
 
     // visitlistUl.id="visitlist_ul";
-     
     initVisitList();
     let button= document.getElementById("save_window_btn");
     let input = document.getElementById("input_area");
@@ -60,7 +59,6 @@ function updateWebviews(){
 }
 
 function initVisitList(value){
-
     let visitlist=[];
     chrome.storage.sync.get(function(items) {
 
@@ -104,13 +102,10 @@ function initVisitList(value){
                     
                     if(value==null){
                 // 임시로 막아놈 기존 promise
-                    fetch("https://favicongrabber.com/api/grab/"+url.hostname,{
-                        headers:{
-                            "Content-Type": application/wasm,
-                            "Access-Control-Allow-Origin": "*"
-                        }
-                    })
-                    .then(response=>response.json())
+                    fetch("https://favicongrabber.com/api/grab/"+url.hostname,)
+                    .then(response=>{
+                        if(response!=null)
+                        return response.json()})
                     .then(({icons}) => {
                     if(icons!=undefined&&icons!=null){
                         if(icons[0]?.src){

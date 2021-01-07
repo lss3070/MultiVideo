@@ -12,6 +12,8 @@ chrome.storage.sync.onChanged.addListener(function(items) {
             localstorage[key[0]] = key[1].newValue;
         });
 });
+
+
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
         if (typeof request.open !== 'undefined') {
@@ -40,9 +42,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
     function createWindow(param){
         param.id=param.id!==param.id !== 'undefined' ? param.id : 'setting';
         param.bounds = (typeof param.bounds !== 'undefined' ? param.bounds : { width:500,height:350,minWidth:170,minHeight:30});
-        let mouseMove=false;
-        let fade = false;
-        
+
         chrome.app.window.create(param.url,{
             frame:'none',
             id:param.id,
@@ -56,10 +56,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 appWindow.contentWindow.document.head.append(style);
             }
 
-            appWindow.contentWindow.addEventListener("DOMContentLoaded",function(){
-                
-            })
-            appWindow.contentWindow.onload = function () {
+            appWindow.contentWindow.onload =function(){
                 let closeBtn = appWindow.contentWindow.document.getElementById('close_window_btn')
                 settingBtn = appWindow.contentWindow.document.getElementById('setting_window_btn'),
                 fixedBtn = appWindow.contentWindow.document.getElementById('fix_window_btn'),
@@ -160,10 +157,9 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     });
                 }
                 if(zoomRange){
-                    zoomRange.addEventListener("input",function(){
-
-                        windowContainer.setZoom(this.value/100);
-                    });
+                    zoomRange.oninput=function(){
+                        appWindow.contentWindow.document.getElementById("window_container").setZoom(this.value/100);
+                    };
                 }
 
                 if(closeBtn){
@@ -178,21 +174,18 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     };
                 }
                 if(fixedBtn){
+                    fixedBtn= appWindow.contentWindow.document.getElementById('fix_window_btn')
                     if (localstorage?.stayontop){
                         fixedBtn.classList.add('fixed');
-                        fixedBtn.innerHTML="on";
                     }
                 else
                     fixedBtn.classList.remove('fixed');
                     fixedBtn.onclick = function () {
-
-                        let fixedbool = fixedBtn.classList.toggle('fixed')
- 
-
-                        appWindow.setAlwaysOnTop(fixedbool );
+                        let fixedbool = fixedBtn.classList.toggle('fixed');
+                        appWindow.setAlwaysOnTop(fixedbool);
                     };
                 }
-                if(windowToolBar){
+                if(windowToolBar&&bodyobj){
        
                     windowToolBar.addEventListener('mousedown',function(){
                         window.removeButtonsForbidden=true;
@@ -213,15 +206,20 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         toolbarMove(false);
                     });
                     
-                    bodyobj.addEventListener('mousemove',function(){
+                    $(bodyobj).mouseleave(function(e){
+                        console.log("나감")
+                        toolbarMove(false);
+                    })
+                    $(bodyobj).mousemove(function( event ) {
+                        console.log("들옴")
                         toolbarMove(true);
+                    });
+                    bodyobj.addEventListener('mousemove',function(){
+                        
                     });
                   
                 }
                 if(windowContainer){
-                    windowContainer.addEventListener("mousemove",function(){
-                        
-                    });
                     windowContainer.addEventListener('permissionrequest', function(e) {
                         if (e.permission === 'fullscreen') {
                             e.stopPropagation()
@@ -256,10 +254,12 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                         }
                 }
             }
+            // appWindow.contentWindow.onload = function () {
+               
+            // }
         });
     }
 
     chrome.app.runtime.onLaunched.addListener(function() {
-
         createWindow({ url: './src/html/setting.html', id: 'setting',bounds:settingBoundaries });
     });

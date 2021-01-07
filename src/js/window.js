@@ -24,7 +24,9 @@ container.addEventListener('loadcommit',function(e){
             },function(results){
                 if (results.length>0) {
                     fetch("https://favicongrabber.com/api/grab/" + results[0])
-                    .then(response => response.json())
+                    .then(response => {
+                        if(response!=null)
+                         return response.json()})
                     .then(({ icons }) => {
                         if(icons!=undefined&&icons!=null){
                             if (icons[0]?.src)
@@ -56,6 +58,10 @@ window.addEventListener('load',function(e){
         }
     })
 })
+window.addEventListener('focus', function(e) {
+    console.log("!")
+    webview.focus();
+});
 
 
 
