@@ -48,18 +48,24 @@ favicon.addEventListener('loadcommit',function(e){
 })
 let webview_zoom_level =null;
 window.addEventListener('load',function(e){
+    console.log( window.screen.deviceXDPI/96)
+    // console.log(container.getScale()*100);
     chrome.storage.sync.get(function(items){
         if(items.url!=null){
+            console.log("!")
             // window.tracker.sendEvent('Browser','Load URL',items.url);
             container.setAttribute('src', items.url[0]);
-            container.getZoom(function(zoomFactor){webview_zoom_level = zoomFactor;});
+            // container.getZoom(function(zoomFactor){
+                
+            //     webview_zoom_level = zoomFactor;
+            // });
+         
         
             updateWebviews();
         }
     })
 })
 window.addEventListener('focus', function(e) {
-    console.log("!")
     webview.focus();
 });
 
@@ -68,6 +74,7 @@ window.addEventListener('focus', function(e) {
 function updateWebviews(){
   webview.style.height = document.documentElement.clientHeight + "px";
   webview.style.width = document.documentElement.clientWidth + "px";
+  
   InitSilderBarPostion();
 }
 

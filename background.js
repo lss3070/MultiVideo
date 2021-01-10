@@ -12,8 +12,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
             localstorage[key[0]] = key[1].newValue;
         });
 });
-
-
     chrome.runtime.onMessage.addListener(function(request,sender,sendResponse){
         
         if (typeof request.open !== 'undefined') {
@@ -30,10 +28,15 @@ chrome.storage.sync.onChanged.addListener(function(items) {
             createWindow({ url: './src/html/window.html', id: 'window',bounds:windowBoundaries });
         }
         if (request.open === 'setting') {
-
             createWindow({ url: './src/html/setting.html', id: 'setting',bounds:settingBoundaries });
+            if(chrome.app.window.get('window')!=null){
+              let temp =  chrome.app.window.get('window').contentWindow.document.getElementById('window_container')
+               temp.setZoom(localstorage.size)
+            }
+            
         }
         if (request.close === 'setting') {
+            console.log(chrome.app.window.get('window'));
             chrome.app.window.get('setting').close();
         }
     });
@@ -147,7 +150,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                             return false;
                         }
                     })
-                
                 }
 
 
@@ -157,8 +159,13 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     });
                 }
                 if(zoomRange){
+                    localstorage.size=localstorage.size==undefined?1:localstorage.size;
+
+                    appWindow.contentWindow.document.getElementById("window_container").setZoom(localstorage.size);
+                    zoomRange.value=localstorage.size*100;
                     zoomRange.oninput=function(){
                         appWindow.contentWindow.document.getElementById("window_container").setZoom(this.value/100);
+                        localstorage.size=this.value/100;
                     };
                 }
 
@@ -174,16 +181,19 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     };
                 }
                 if(fixedBtn){
-                    fixedBtn= appWindow.contentWindow.document.getElementById('fix_window_btn')
-                    if (localstorage?.stayontop){
-                        fixedBtn.classList.add('fixed');
-                    }
-                else
-                    fixedBtn.classList.remove('fixed');
-                    fixedBtn.onclick = function () {
-                        let fixedbool = fixedBtn.classList.toggle('fixed');
-                        appWindow.setAlwaysOnTop(fixedbool);
-                    };
+                    fixedBtn= appWindow.contentWindow.document.getElementById('fix_window_btn');
+                    if (localstorage?.stayontop) fixedBtn.classList.add('fixed');
+                    else fixedBtn.classList.remove('fixed');
+
+
+                        fixedBtn.onclick = function () {
+                            fixedBtn= appWindow.contentWindow.document.getElementById('fix_window_btn');
+                            let fixedbool = fixedBtn.classList.toggle('fixed');
+                            localstorage.stayontop=fixedbool;
+                            appWindow.setAlwaysOnTop(fixedbool);
+                        };
+                    
+
                 }
                 if(windowToolBar&&bodyobj){
        
@@ -220,6 +230,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                   
                 }
                 if(windowContainer){
+                    
                     windowContainer.addEventListener('permissionrequest', function(e) {
                         if (e.permission === 'fullscreen') {
                             e.stopPropagation()
