@@ -13,13 +13,24 @@
     background:#636363;
 }
 
-#window_toolbar.fadein{
+.detect.window_toolbar_movedown{
     opacity: 1;
 }
-#window_toolbar.fadeout{
+.detect.window_toolbar_moveup{
     opacity: 0;
     top:-38px
 }
+
+
+.detect.window_toolbar_moveup::after{
+    content:"";
+    position: fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+
 
 #window_title{
     right:0;

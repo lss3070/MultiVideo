@@ -36,7 +36,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
             
         }
         if (request.close === 'setting') {
-            console.log(chrome.app.window.get('window'));
             chrome.app.window.get('setting').close();
         }
     });
@@ -84,7 +83,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 .then(resp => {
                     resFn(resp);
                   const csp = resp.headers.get('Content-Security-Policy');
-                console.log(csp)
                 });
 
                 function resFn(res){
@@ -150,7 +148,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                             return false;
                         }
                     })
-                }
+                } 
 
 
                 if(underBar){
@@ -173,7 +171,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     closeBtn.onclick = function () {
                         appWindow.close();
                     };
-                }
+                } 
 
                 if(settingBtn){
                     settingBtn.onclick = function () {
@@ -185,7 +183,6 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     if (localstorage?.stayontop) fixedBtn.classList.add('fixed');
                     else fixedBtn.classList.remove('fixed');
 
-
                         fixedBtn.onclick = function () {
                             fixedBtn= appWindow.contentWindow.document.getElementById('fix_window_btn');
                             let fixedbool = fixedBtn.classList.toggle('fixed');
@@ -196,37 +193,18 @@ chrome.storage.sync.onChanged.addListener(function(items) {
 
                 }
                 if(windowToolBar&&bodyobj){
-       
-                    windowToolBar.addEventListener('mousedown',function(){
-                        window.removeButtonsForbidden=true;
-                    })
-                    windowToolBar.addEventListener('mouseup',function(){
-                        
-                        window.removeButtonsForbidden=false;
-                    })
-                    windowToolBar.addEventListener('mousemove',function(e){
-                        
+
+                    windowToolBar.onmousemove=function(){
                         toolbarMove(true);
-                        clearTimeout(appWindow.contentWindow.removeToolbarTimer);
-                    });
-                    windowToolBar.addEventListener('mouseleave',function(e){
-                        toolbarMove(false);
-                    })
+                    }
                     bodyobj.addEventListener("mouseleave",function(e){
                         toolbarMove(false);
                     });
-                    
-                    $(bodyobj).mouseleave(function(e){
-                        console.log("나감")
-                        toolbarMove(false);
-                    })
-                    $(bodyobj).mousemove(function( event ) {
-                        console.log("들옴")
+                    bodyobj.onmousemove=function(e){
                         toolbarMove(true);
-                    });
-                    bodyobj.addEventListener('mousemove',function(){
-                        
-                    });
+                    };
+    
+              
                   
                 }
                 if(windowContainer){
@@ -241,7 +219,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                 function toolbarMove(fade){
                     clearTimeout(appWindow.contentWindow.removeToolbarTimer);
                         if(!fade){
-                            const storageToolBarTimeOut= localstorage?.toolbartimeout?? 1.5;
+                            const storageToolBarTimeOut= localstorage?.toolbartimeout?? 1;
 
                             appWindow.contentWindow.removeToolbarTimer=setTimeout(()=>{
                             
@@ -252,7 +230,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                                     windowContainer.classList.remove("container_movedown");
                                     windowContainer.classList.add("container_moveup");
                                 }
-                            },(storageToolBarTimeOut>.5?storageToolBarTimeOut:1.5)*1000) 
+                            },(storageToolBarTimeOut>.5?storageToolBarTimeOut:2)*1000) 
                         }else{
                             if(windowToolBar&&windowContainer){
                                 windowToolBar.classList.remove("window_toolbar_moveup");
