@@ -9,6 +9,7 @@ const title = document.getElementById("");
 window.onresize=updateWebviews;
 
 function load(){    
+    console.log(WebAssembly);
     fetch(document.location.href)
     .then(resp => {
       const csp = resp.headers.get('Content-Security-Policy');
@@ -34,7 +35,11 @@ function load(){
         if(!check) input.value="http://"+input.value;
 
         if(input.value!=null&&input.value!==""){
-            fetch(input.value)
+            fetch(input.value,{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response=>{
                 jump(response.url)
             } 
@@ -80,6 +85,7 @@ function initVisitList(value){
             if(visitlist!=undefined&&visitlist.length>0){
                 visitlist.forEach(e => {
                     let li= document.createElement("li");
+                
                     let favicon  = document.createElement("webview");
                     let li_a= document.createElement("a");
                     let btn = document.createElement("button");
@@ -98,23 +104,11 @@ function initVisitList(value){
                     })
     
                     li_a.innerHTML=e;
-                    li.className="visitlist_li"
+                    li.className="visitlist_li";
                     
-                    if(value==null){
-                // 임시로 막아놈 기존 promise
-                    fetch("https://favicongrabber.com/api/grab/"+url.hostname,)
-                    .then(response=>{
-                        if(response!=null)
-                        return response.json()})
-                    .then(({icons}) => {
-                    if(icons!=undefined&&icons!=null){
-                        if(icons[0]?.src){
-                            favicon.src = icons[0]?.src;
-                        }
-                    }
-                })
-                        }
-       
+                    favicon.setAttribute("partition", "persist:webviewsession");
+                    favicon.src=url.origin+"/favicon.ico";
+                    
                     visitlistUl.appendChild(li);
                     li.appendChild(favicon);
                     li.appendChild(li_a);

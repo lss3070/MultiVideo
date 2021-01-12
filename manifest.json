@@ -15,6 +15,8 @@
           "alwaysOnTopWindows",
            "unlimitedStorage",
             "browser",
+            "webRequest",
+            "*://*.google.com/",
             "<all_urls>",
             "identity"
             ],   
@@ -25,5 +27,5 @@
             "persistent":false
         }
     },
-    "minimum_chrome_version":"43"
+    "minimum_chrome_version":"87"
 }

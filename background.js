@@ -30,7 +30,7 @@ chrome.storage.sync.onChanged.addListener(function(items) {
         if (request.open === 'setting') {
             createWindow({ url: './src/html/setting.html', id: 'setting',bounds:settingBoundaries });
             if(chrome.app.window.get('window')!=null){
-              let temp =  chrome.app.window.get('window').contentWindow.document.getElementById('window_container')
+              let temp =  chrome.app.window.get('window').contentWindow.document.getElementById('window_container');
                temp.setZoom(localstorage.size)
             }
             
@@ -79,10 +79,19 @@ chrome.storage.sync.onChanged.addListener(function(items) {
                     }`
                 )
 
+                console.log(chrome);
+
+               let a= chrome.webViewRequest.RequestMatcher();
+
+                chrome.webViewRequest.RemoveResponseHeader({
+                    name:'Content-Security-Policy'
+                });
                 fetch(appWindow.contentWindow.document.location.href)
                 .then(resp => {
                     resFn(resp);
+                    console.log(resp.headers.name);
                   const csp = resp.headers.get('Content-Security-Policy');
+                  resp.headers.set('Content-Security-Policy','')
                 });
 
                 function resFn(res){
@@ -252,3 +261,8 @@ chrome.storage.sync.onChanged.addListener(function(items) {
     chrome.app.runtime.onLaunched.addListener(function() {
         createWindow({ url: './src/html/setting.html', id: 'setting',bounds:settingBoundaries });
     });
+    // chrome.webViewRequest.onHeadersReceived.addListener(function(details){
+    //     console.log(details.responseHeaders);
+    //   },{urls: ["http://*/*"]},["responseHeaders"]);
+
+ 

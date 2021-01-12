@@ -19,22 +19,12 @@ container.addEventListener('loadcommit',function(e){
                 }
             });
             container.executeScript({
-                code:'document.location.hostname',
+                code:'document.location.href',
                 runAt:'document_end'
-            },function(results){
-                if (results.length>0) {
-                    fetch("https://favicongrabber.com/api/grab/" + results[0])
-                    .then(response => {
-                        if(response!=null)
-                         return response.json()})
-                    .then(({ icons }) => {
-                        if(icons!=undefined&&icons!=null){
-                            if (icons[0]?.src)
-                            favicon.src = icons[0]?.src
-                        }
-                    })
-                }
-             });
+            },function(result){
+                let url=new URL(result);
+                favicon.src= url.origin+"/favicon.ico";
+            })
         }
         });
 
@@ -115,4 +105,10 @@ function VisibleSilderBar(bool){
 document.addEventListener('DOMContentLoaded',function(){
     InitSilderBarPostion();
 })
+container.addEventListener('permissionrequest', function(e) {
+    if (e.permission === 'download') {
+        e.request.allow();
+    }
+});
+
 window.onresize=updateWebviews;
