@@ -1,35 +1,41 @@
-
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="../../style/window.css">
-    <link rel="stylesheet" href="../../style/toolbar.css">
-    <meta http-equiv="Content-Security-Policy"charset="UTF-8"; content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-eval'">
-    <title>appName</title>
-    <script defer src="/src/js/window.js"></script>
- 
-</head>
-<body id="WindowView">
-    <webview class="container_moveup" id="window_container"  partition="persist:framelessapps" frameborder="0">
-    </webview>
-    <div id="window_toolbar" class="detect window_toolbar_moveup">
-        <webview id="window_favicon"></webview>
-        <span id="window_title">Multi View</span>
-        <div id="window_buttonlst">
-            <input type="button" id="size_window_button"/>
-            <input type="range" class="size_window_range" min="0" max="100"
-            value="100" id="size_window_slider"/>
-            <span width="20px"></span>
-                <button class="window_btn fixoff_window" id="fix_window_btn">
-                    </button>
-                    <button class="window_btn" id="setting_window_btn">
-                    </button>
-                    <button class="window_btn" id="underbar_window_btn">
-                    </button>
-                    <button class="window_btn" id="close_window_btn">
-                    </button>
+    <head>
+        <link rel="stylesheet" href="../../style/window.css">
+        <link rel="stylesheet" href="../../style/toolbar.css">
+        <meta
+            http-equiv="Content-Security-Policy"
+            charset="UTF-8"
+            content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-eval'">
+        <title>appName</title>
+        <script defer="defer" src="/src/js/window.js"></script>
+
+    </head>
+    <body id="WindowView">
+        <webview
+            class="container_moveup"
+            id="window_container"
+            partition="persist:framelessapps"
+            frameborder="0"></webview>
+        <div id="window_toolbar" class="detect window_toolbar_moveup">
+            <webview id="window_favicon"></webview>
+            <span id="window_title">Multi View</span>
+            <div id="window_buttonlst">
+                <input type="button" id="size_window_button"/>
+                <input
+                    type="range"
+                    class="size_window_range"
+                    min="0"
+                    max="100"
+                    value="100"
+                    id="size_window_slider"/>
+                <span width="20px"></span>
+                <button class="window_btn fixoff_window" id="fix_window_btn"></button>
+                <button class="window_btn" id="setting_window_btn"></button>
+                <button class="window_btn" id="underbar_window_btn"></button>
+                <button class="window_btn" id="close_window_btn"></button>
+            </div>
+            <div id="window_dragarea"></div>
         </div>
-        <div id ="window_dragarea"></div>
-    </div>
-</body>
+    </body>
 </html>

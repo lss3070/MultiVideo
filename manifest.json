@@ -9,13 +9,13 @@
         "128":"/image/multiview_128.png"
     },
 
-    "permissions":["webview", 
+    "permissions":[
+        "webview", 
         "storage",
          "contextMenus",
           "alwaysOnTopWindows",
            "unlimitedStorage",
             "browser",
-            "webRequest",
             "*://*.google.com/",
             "<all_urls>",
             "identity"
@@ -23,9 +23,9 @@
     "description": "MultiView",
     "app":{
         "background":{
-            "scripts":["thirdparty/jquery-3.5.1.min.js","thirdparty/jquery-ui.min.js","background.js"],
+            "scripts":["thirdparty/jquery-3.5.1.min.js","thirdparty/jquery-ui.js","background.js"],
             "persistent":false
         }
     },
-    "minimum_chrome_version":"87"
+    "minimum_chrome_version":"55"
 }
