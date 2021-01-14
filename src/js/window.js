@@ -4,7 +4,7 @@ const webview = document.getElementById("WindowView"),
     windowTitle = document.getElementById('window_title');
 
 const sliderbar = document.getElementById("size_window_slider");
-const sliderbutton = document.getElementById("size_window_button");
+const sliderbutton = document.getElementById("appLabelZoom");
 
 window.addEventListener("resize", function () {
     webview.style.height = document.documentElement.clientHeight + "px";
@@ -100,6 +100,6 @@ function InitSilderBarPostion() {
             .getBoundingClientRect()
             .width;
 
-        sliderbar.style.top=offsettop;+"px"
+            sliderbar.style.top=offsettop;+"px"
         sliderbar.style.left = offsetleft - 16 + "px";
     }

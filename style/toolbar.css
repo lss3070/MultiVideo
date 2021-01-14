@@ -93,19 +93,19 @@
     filter: brightness(1.75);
 }
 
-#fix_window_btn{
+#appLabelFix{
     background: url("../image/pick.png") no-repeat;
 }
-#setting_window_btn{
+#appLabelSetting{
     background: url("../image/settings_24.png") no-repeat;
 }
-#close_window_btn{
+#appLabelClose{
     background: url("../image/close_24.png") no-repeat;
 }
-#fix_window_btn{
+#appLabelFix{
     background:url("../image/fixoff_24.png") no-repeat;
 }
-#underbar_window_btn{
+#appLabelMinimize{
     background:url("../image/under_24.png") no-repeat;
 }
 .fixed{

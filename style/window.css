@@ -22,7 +22,7 @@
     -webkit-appearance: slider-vertical; /* WebKit */
     cursor:pointer;
 }
-#size_window_button{
+#appLabelZoom{
     border-radius: 50%;
     width:15px;
     height:15px;

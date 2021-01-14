@@ -140,15 +140,15 @@ function createWindow(param) {
                 let closeBtn = window
                         .contentWindow
                         .document
-                        .getElementById('close_window_btn')
+                        .getElementById('appLabelClose')
                     settingBtn = window
                         .contentWindow
                         .document
-                        .getElementById('setting_window_btn'),
+                        .getElementById('appLabelSetting'),
                     fixedBtn = window
                         .contentWindow
                         .document
-                        .getElementById('fix_window_btn'),
+                        .getElementById('appLabelFix'),
                     windowToolBar = window
                         .contentWindow
                         .document
@@ -172,15 +172,19 @@ function createWindow(param) {
                     underBar = window
                         .contentWindow
                         .document
-                        .getElementById("underbar_window_btn"),
+                        .getElementById("appLabelMinimize"),
                     autocomplete = window
                         .contentWindow
                         .document
-                        .getElementById("input_area"),
+                        .getElementById("appPlaceHolderSearch"),
                     serachBtn = window
                         .contentWindow
                         .document
-                        .getElementById("save_window_btn")
+                        .getElementById("appBtnSearch"),
+                    zoomBtn = window
+                    .contentWindow
+                    .document
+                    .getElementById("appLabelZoom")
 
                     addStyle(
                         `
@@ -228,9 +232,13 @@ function createWindow(param) {
                         })
                     }
                     if (underBar) {
+                        underBar.title=chrome.i18n.getMessage('appLabelMinimize');
                         underBar.addEventListener('click', function () {
                             window.minimize();
                         });
+                    }
+                    if(zoomBtn){
+                        zoomBtn.title=chrome.i18n.getMessage('appLabelZoom');
                     }
                     if (zoomRange) {
                         localstorage.size = localstorage.size == undefined
@@ -254,12 +262,14 @@ function createWindow(param) {
                     }
 
                     if (closeBtn) {
+                        closeBtn.title=chrome.i18n.getMessage('appLabelClose');
                         closeBtn.onclick = function () {
                             window.close();
                         };
                     }
 
                     if (settingBtn) {
+                        settingBtn.title=chrome.i18n.getMessage('appLabelSetting');
                         settingBtn.onclick = function () {
                             window
                                 .contentWindow
@@ -269,10 +279,13 @@ function createWindow(param) {
                         };
                     }
                     if (fixedBtn) {
+
                         fixedBtn = window
                             .contentWindow
                             .document
-                            .getElementById('fix_window_btn');
+                            .getElementById('appLabelFix');
+
+                        fixedBtn.title=chrome.i18n.getMessage('appLabelFix');
                         if (
                             localstorage
                                 ?.fixed
@@ -289,7 +302,7 @@ function createWindow(param) {
                             fixedBtn = window
                                 .contentWindow
                                 .document
-                                .getElementById('fix_window_btn');
+                                .getElementById('appLabelFix');
                             let fixedbool = fixedBtn
                                 .classList
                                 .toggle('fixed');

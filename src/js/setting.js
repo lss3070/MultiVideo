@@ -11,12 +11,18 @@ window.addEventListener("resize", function () {
 });
 
 function load() {
-    // visitlistUl.id="visitlist_ul";
-    initVisitList();
-    let button = document.getElementById("save_window_btn");
-    let input = document.getElementById("input_area");
+    let input=document.getElementById("appPlaceHolderSearch");
+    let searchbtn=document.getElementById("appBtnSearch");
 
-    button.addEventListener('click', function () {
+    input.placeholder=chrome.i18n.getMessage('appPlaceHolderSearch');
+    document.getElementById("appLabelRecnetVisitPage").innerHTML=chrome.i18n.getMessage('appLabelRecnetVisitPage');
+    document.getElementById("appTxtlAdrressBox").innerHTML=chrome.i18n.getMessage('appTxtlAdrressBox');
+    searchbtn.value=chrome.i18n.getMessage('appBtnSearch');
+
+
+    initVisitList();
+
+    searchbtn.addEventListener('click', function () {
         let check = false;
 
         httplist.forEach(e => {
@@ -42,7 +48,7 @@ function load() {
     })
     input.addEventListener('keypress', function (e) {
         if (e.key == "Enter") 
-            button.click();;
+        searchbtn.click();;
     })
 }
 function jump(value) {
@@ -152,5 +158,5 @@ function listremove(index) {
                 .sync
                 .set({url: items.url});
         });
-
 }
+

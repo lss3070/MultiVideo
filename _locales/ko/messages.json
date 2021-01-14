@@ -1,0 +1,46 @@
+{
+    "appName": {
+        "message": "MultiView",
+        "description": "어플리케이션의 이름입니다."
+    },
+    "appDesc": {
+        "message": "동영상을 맨 위에 고정하고 전체 화면에서 깔끔하게 보려면 MultiView를 사용하세요",
+        "description": "MultiView에 대한 설명"
+    },
+    "appLabelMinimize": {
+        "message": "최소화",
+        "description": "창의 크기를 최소화해주는 버튼입니다."
+    },
+    "appLabelClose": {
+        "message": "닫기",
+        "description": "닫기 버튼입니다."
+    },
+    "appLabelZoom": {
+        "message": "확대/축소",
+        "description": "윈도우 창의 배율을 설정합니다."
+    },
+    "appLabelFix": {
+        "message": "고정",
+        "description": "윈도우 창을 고정시킵니다."
+    },
+    "appLabelSetting": {
+        "message": "설정",
+        "description": "설정창을 띄웁니다."
+    },
+    "appPlaceHolderSearch": {
+        "message": "주소를 입력해주세요",
+        "description": "주소를 입력하는 창입니다."
+    },
+    "appLabelRecnetVisitPage": {
+        "message": "최근 방문 페이지",
+        "description": "최근에 방문했던 주소들입니다."
+    },
+    "appTxtlAdrressBox": {
+        "message": "주소",
+        "description": "주소를 표시해주는 라벨입니다."
+    },
+    "appBtnSearch": {
+        "message": "검색",
+        "description": "주소를 검색하는 버튼입니다"
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "appName": {
+        "message": "MultiView",
+        "description": "e."
+    },
+    "appDesc": {
+        "message": "This app does something awesome.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    
+
+    "appLabelMinimize": {
+        "message": "minimize",
+        "description": "e."
+    },
+    "appLabelClose": {
+        "message": "close",
+        "description": "e."
+    },
+    "appLabelZoom": {
+        "message": "zoom",
+        "description":"e."
+    },
+    "appLabelFix": {
+        "message": "fix",
+        "description": "e."
+    },
+    "appLabelSetting": {
+        "message": "setting",
+        "description": "e."
+    },
+    "appLabelRecnetVisitPage": {
+        "message": "RecentVisitPage",
+        "description": "e."
+    },
+    "appPlaceHolderSearch": {
+        "message": "placeholder",
+        "description":"e."
+    },
+    
+    "appTxtlAdrressBox": {
+        "message": "address",
+        "description": "e."
+    },
+    "appBtnSearch": {
+        "message": "search",
+        "description": "e."
+    }
+}
