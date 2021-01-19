@@ -12,9 +12,8 @@
 MultiView를 사용하셔서 보다 편리하게 학습하고 작업하세요
 
 
-![intro1](./image/intro/intro1.png)
-
-![intro2](./image/intro/intro2.png = 400x)
+![intro1](./image/intro/intro1.png){: width="200" height="100"}
+![intro2](./image/intro/intro2.png){: width="200" height="100"}
 
 
 📖Installlion
