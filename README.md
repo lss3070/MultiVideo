@@ -9,13 +9,13 @@
 
 크롬 브라우저에서 상단고정이 지원 안되니 동영상 보기에 유용할 겁니다!!
 
-![intro1]({{site.url}}/image/intro/intro1.png)
+![intro1](./image/intro/intro1.png)
 
-![intro2]({{site.url}}/image/intro/intro2.png)
+![intro2](./image/intro/intro2.png)
 
 Installlion
 ---
-![step1]({{site.url}}/image/intro/step1.png)
+![step1](./image/intro/step1.png)
 1.
 chrome://extensions/ 접속 후 '압축해제된 확장프로그램을 로드합니다.'를 눌러 다운 받은 깃헙파일을 로드해줍니다.
 
