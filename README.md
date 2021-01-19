@@ -1,21 +1,21 @@
 # MultiView
 -----
 
-크롬 확장프로그램이다 app 형식으로 되어있는 프로그램이라 앱스토어에 등록은 안된다..ㅠㅜ
 
 
-MultiView is Side Chrome Browser
+크롬 확장프로그램이며 app 형식으로 되어있는 프로그램이라 앱스토어에 등록은 안된니다
+(20년도 3월부터 안되네요)
+참고:https://blog.chromium.org/2020/01/moving-forward-from-chrome-apps.html
 
+크롬 브라우저에서 상단고정이 지원 안되니 동영상 보기에 유용할 겁니다!!
 
+({{site.url}}/image/intro/intro1.png)
 
-
-
-
-
+({{site.url}}/image/intro/intro2.png)
 
 Installlion
 ---
-
+({{site.url}}/image/intro/step1.png)
 1.
 chrome://extensions/ 접속 후 '압축해제된 확장프로그램을 로드합니다.'를 눌러 다운 받은 깃헙파일을 로드해줍니다.
 
