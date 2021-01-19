@@ -8,8 +8,8 @@
 참고:https://blog.chromium.org/2020/01/moving-forward-from-chrome-apps.html
 
 크롬 브라우저에서 상단고정이 지원 안되니 동영상 보기에 유용할 겁니다!!
-
-![intro1](./image/intro/intro1.png)
+(https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![intro1](https://github.com/lss3070/MultiVideo/blob/main/image/intro/image.jpg?raw=true)
 
 ![intro2](./image/intro/intro2.png)
 
