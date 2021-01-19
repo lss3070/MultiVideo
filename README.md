@@ -11,9 +11,16 @@
 크롬 브라우저를 사용하다 보면 상단고정이 지원 안되서 영상보면서 컴퓨터로 작업하기 은근 번거로울겁니다.
 MultiView를 사용하셔서 보다 편리하게 학습하고 작업하세요
 
+  
+<p align="center">
+   <img src="/image/intro/intro1.png" width="550" height="350" >
+  </p>
+  <p align="center">
+   <img src="/image/intro/intro2.png" width="550" height="350" >
+  </p>
+ 
 
-![intro1](./image/intro/intro1.png){: width="200" height="100"}
-![intro2](./image/intro/intro2.png){: width="200" height="100"}
+
 
 
 📖Installlion
