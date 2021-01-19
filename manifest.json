@@ -19,8 +19,8 @@
            "unlimitedStorage",
             "browser",
             "*://*.google.com/",
-            "<all_urls>",
-            "identity"
+            "<all_urls>"
+           
             ],   
     "app":{
         "background":{

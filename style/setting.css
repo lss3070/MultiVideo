@@ -61,4 +61,6 @@
 .visitlist_a{
     width:100%;
     position:fixed;
+    overflow: hidden;
+    white-space: nowrap;
 }
