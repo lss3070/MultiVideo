@@ -9,6 +9,7 @@
 참고:https://blog.chromium.org/2020/01/moving-forward-from-chrome-apps.html
 
 크롬 브라우저를 사용하다 보면 상단고정이 지원 안되서 영상보면서 작업하기 번거로울겁니다.
+
 MultiView를 사용하셔서 보다 편리하게 학습하고 작업하세요
 
   
