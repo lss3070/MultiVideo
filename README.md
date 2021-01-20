@@ -26,6 +26,8 @@ MultiView를 사용하셔서 보다 편리하게 학습하고 작업하세요
 
 📖Installlion
 ---
+0.먼저 깃헙 코드를 다운받고 압축을 풀어주세요!!
+
 
 ![step1](./image/intro/step1.png)
 
